@@ -1,0 +1,19 @@
+body,html{
+    background-color: #f3f3f3;
+}
+
+.user-edit-card{
+    margin-top: 15px;
+    background-color: #fff;
+}
+
+.user-cover-edit{
+    position: relative;
+}
+
+.user-cover-edit-btn{
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    z-index: 1;
+}

@@ -1,0 +1,283 @@
+<%- include meta.ejs %>
+<link rel="stylesheet" href="/css/user.css">
+<%- include header.ejs %>
+<% if(user){ %>
+<div class="container summary">
+    <%- include alert.ejs %>
+    <div class="row user-info-head">
+        <div class="col-sm-12 col-md-12">
+            <div class="thumbnail">
+                <div class="avatar">
+                    <img class="img-circle" src="/images/head1.jpg" alt="...">
+                    <div class="user-gender"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
+                </div>
+                <div class="caption text-center">
+                    <h3 class="user-nick">用户昵称</h3>
+                    <p>个性签名……………………</p>
+                    <p><a href="/user/<%= user%>/edit" class="btn btn-primary" role="button">编辑个人资料</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 资源 -->
+    <div class="row">
+        <div class="col-sm-8 col-md-8">
+            <div class="select-area">
+                <ul class="nav nav-tabs user-main-tab" role="tablist" id="feature-tab">
+                    <li class="active">
+                        <a href="#tab-mood" role="tab" data-toggle="tab">动态</a>
+                    </li>
+                    <li>
+                        <a href="#tab-note" role="tab" data-toggle="tab">笔记</a>
+                    </li>
+                    <li>
+                        <a href="#tab-question" role="tab" data-toggle="tab">提问</a>
+                    </li>
+                    <li>
+                        <a href="#tab-answer" role="tab" data-toggle="tab">回答</a>
+                    </li>
+                    <li>
+                        <a href="#tab-collect" role="tab" data-toggle="tab">收藏</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <!--我的动态-->
+                    <div class="tab-pane active" id="tab-mood">
+                        <div class="pub-tab-top">
+                            <h5 class="pub-tab-title">我的动态</h5>
+                        </div>
+                        <ul class="list-group pub-show-list">
+                            <li class="list-group-item pub-show-item">
+                                <div class="line"></div>
+                                <div class="clearfix">
+                                    <p class="list-group-item-text pull-left pub-show-tips">关注话题</p>
+                                    <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
+                                </div>
+                                <div class="pub-show-content clearfix">
+                                    <div class="pull-left pub-show-content-txt">
+                                        <h3 class="list-group-item-heading pull-left">List group item heading</h3>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item pub-show-item">
+                                <div class="line"></div>
+                                <div class="clearfix">
+                                    <p class="list-group-item-text pull-left pub-show-tips">关注话题</p>
+                                    <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
+                                </div>
+                                <div class="pub-show-content clearfix">
+                                    <div class="pull-left pub-show-content-img">
+                                        <img src="https://pic1.zhimg.com/50/3f18e550c_im.jpg" alt="">
+                                    </div>
+                                    <div class="pull-left pub-show-content-txt">
+                                        <h3 class="list-group-item-heading pull-left">item headingList group item heading1111111111</h3>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--我的笔记-->
+                    <div class="tab-pane" id="tab-note">
+                        <div class="pub-tab-top">
+                            <h5 class="pub-tab-title">我的笔记</h5>
+                        </div>
+                        <ul class="list-group pub-show-list">
+                            <li class="list-group-item pub-show-item">
+                                <div class="line"></div>
+                                <div class="clearfix">
+                                    <p class="list-group-item-text pull-left pub-show-tips">关注话题</p>
+                                    <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
+                                </div>
+                                <div class="pub-show-content clearfix">
+                                    <div class="pull-left pub-show-content-txt">
+                                        <h3 class="list-group-item-heading pull-left">List group item heading</h3>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item pub-show-item">
+                                <div class="line"></div>
+                                <div class="clearfix">
+                                    <p class="list-group-item-text pull-left pub-show-tips">关注话题</p>
+                                    <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
+                                </div>
+                                <div class="pub-show-content clearfix">
+                                    <div class="pull-left pub-show-content-img">
+                                        <img src="https://pic1.zhimg.com/50/3f18e550c_im.jpg" alt="">
+                                    </div>
+                                    <div class="pull-left pub-show-content-txt">
+                                        <h3 class="list-group-item-heading pull-left">item headingList group item heading1111111111</h3>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--我的提问-->
+                    <div class="tab-pane" id="tab-question">
+                        <div class="tab-pane active" id="tab-mood">
+                            <div class="pub-tab-top">
+                                <h5 class="pub-tab-title">我的提问</h5>
+                            </div>
+                            <ul class="list-group pub-show-list">
+                                <li class="list-group-item pub-show-item">
+                                    <div class="line"></div>
+                                    <div class="clearfix">
+                                        <p class="list-group-item-text pull-left pub-show-tips">关注话题</p>
+                                        <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
+                                    </div>
+                                    <div class="pub-show-content clearfix">
+                                        <div class="pull-left pub-show-content-txt">
+                                            <h3 class="list-group-item-heading pull-left">List group item heading</h3>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item pub-show-item">
+                                    <div class="line"></div>
+                                    <div class="clearfix">
+                                        <p class="list-group-item-text pull-left pub-show-tips">关注话题</p>
+                                        <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
+                                    </div>
+                                    <div class="pub-show-content clearfix">
+                                        <div class="pull-left pub-show-content-img">
+                                            <img src="https://pic1.zhimg.com/50/3f18e550c_im.jpg" alt="">
+                                        </div>
+                                        <div class="pull-left pub-show-content-txt">
+                                            <h3 class="list-group-item-heading pull-left">item headingList group item heading1111111111</h3>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--我的回答-->
+                    <div class="tab-pane" id="tab-answer">
+                        <div class="tab-pane active" id="tab-mood">
+                            <div class="pub-tab-top">
+                                <h5 class="pub-tab-title">我的回答</h5>
+                            </div>
+                            <ul class="list-group pub-show-list">
+                                <li class="list-group-item pub-show-item">
+                                    <div class="line"></div>
+                                    <div class="clearfix">
+                                        <p class="list-group-item-text pull-left pub-show-tips">关注话题</p>
+                                        <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
+                                    </div>
+                                    <div class="pub-show-content clearfix">
+                                        <div class="pull-left pub-show-content-txt">
+                                            <h3 class="list-group-item-heading pull-left">List group item heading</h3>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item pub-show-item">
+                                    <div class="line"></div>
+                                    <div class="clearfix">
+                                        <p class="list-group-item-text pull-left pub-show-tips">关注话题</p>
+                                        <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
+                                    </div>
+                                    <div class="pub-show-content clearfix">
+                                        <div class="pull-left pub-show-content-img">
+                                            <img src="https://pic1.zhimg.com/50/3f18e550c_im.jpg" alt="">
+                                        </div>
+                                        <div class="pull-left pub-show-content-txt">
+                                            <h3 class="list-group-item-heading pull-left">item headingList group item heading1111111111</h3>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--我的收藏-->
+                    <div class="tab-pane" id="tab-collect">
+                        <div class="tab-pane active" id="tab-mood">
+                            <div class="pub-tab-top">
+                                <h5 class="pub-tab-title">我的收藏</h5>
+                            </div>
+                            <ul class="list-group pub-show-list">
+                                <li class="list-group-item pub-show-item">
+                                    <div class="line"></div>
+                                    <div class="clearfix">
+                                        <p class="list-group-item-text pull-left pub-show-tips">关注话题</p>
+                                        <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
+                                    </div>
+                                    <div class="pub-show-content clearfix">
+                                        <div class="pull-left pub-show-content-txt">
+                                            <h3 class="list-group-item-heading pull-left">List group item heading</h3>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item pub-show-item">
+                                    <div class="line"></div>
+                                    <div class="clearfix">
+                                        <p class="list-group-item-text pull-left pub-show-tips">关注话题</p>
+                                        <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
+                                    </div>
+                                    <div class="pub-show-content clearfix">
+                                        <div class="pull-left pub-show-content-img">
+                                            <img src="https://pic1.zhimg.com/50/3f18e550c_im.jpg" alt="">
+                                        </div>
+                                        <div class="pull-left pub-show-content-txt">
+                                            <h3 class="list-group-item-heading pull-left">item headingList group item heading1111111111</h3>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-md-4">
+            <div class="follow-card">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="my-follow">
+                            <a href="">
+                                <div class="pub-f-txt">我的关注</div>
+                                <div class="pub-f-num">123</div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="my-follow-line"></div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="my-fans">
+                            <a href="">
+                                <div class="pub-f-txt">我的粉丝</div>
+                                <div class="pub-f-num">123</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--其他关注列表-->
+            <ul class="list-group follow-list">
+                <li class="list-group-item">
+                    <span class="badge">14</span>
+                    Cras justo odio
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">14</span>
+                    Cras justo odio
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">14</span>
+                    Cras justo odio
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">14</span>
+                    Cras justo odio
+                </li>
+                <li class="list-group-item">
+                    您的主页被浏览70次
+                </li>
+            </ul>
+        </div>
+    </div>
+    <%- include footer.ejs %>
+</div>
+<% } %>
+<%- include posts.ejs %><!--替换了书中的partial函数-->

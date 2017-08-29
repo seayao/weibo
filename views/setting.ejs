@@ -1,0 +1,11 @@
+<%- include meta.ejs %>
+<!--<link rel="stylesheet" href="/css/setting.css">-->
+<%- include header.ejs %>
+<% if(user){ %>
+<div class="container">
+    <%- include alert.ejs %>
+    个人设置界面
+    <%- include footer.ejs %>
+</div>
+<% } %>
+

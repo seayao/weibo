@@ -1,0 +1,54 @@
+<!-- 顶部导航 -->
+<div class="navbar navbar-default navbar-fixed-top slideUp slideDown" role="navigation" id="menu-nav">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">切换导航</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand my-logo" href="/#">Answer</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <div class="row">
+                <ul class="nav navbar-nav pull-left nav-style-list">
+                    <li class="nav-style-item"><a href="/#">首页</a></li>
+                    <li class="nav-style-item"><a href="/discover">发现</a></li>
+                    <li class="nav-style-item"><a href="/question">问答</a></li>
+                </ul>
+                <div class="input-group pull-left my-search-div col-md-3 col-sm-3">
+                    <input type="text" class="form-control my-search-input" placeholder="Search for you like...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default my-search-btn" type="button">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </button>
+                    </span>
+                </div>
+                <% if(!user){ %>
+                <!--未登录时显示登录信息-->
+                <ul class="nav navbar-nav pull-right user-login-reg-list">
+                    <li class="login-reg"><a href="/login">登录</a></li>
+                    <li class="login-reg"><a href="/reg">注册</a></li>
+                </ul>
+                <% }else{ %>
+                <!--登录后，显示发表按钮-->
+                <button type="button" class="btn btn-primary publish-btn">投稿</button>
+                <!--登录后，显示个人信息-->
+                <ul class="nav navbar-nav pull-right user-handle-list">
+                <li class="user-handle-item"><a href="#"><span class="glyphicon glyphicon-bell icon-style message-tips" aria-hidden="true"></span></a></li>
+                <li class="user-handle-item"><a href="#"><span class="glyphicon glyphicon-send icon-style private-letter" aria-hidden="true"></span></a></li>
+                <li class="dropdown user-handle-item">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img class="img-circle user-head" src="/images/head_small1.jpg" alt=""><span class="caret"></span></a>
+                <ul class="dropdown-menu user-handle-item-menu" role="menu">
+                <li><a href="/user/<%= user%>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>我的主页</a></li>
+                <li><a href="/setting/<%= user%>" ><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>个人设置</a></li>
+                <li><a href="/logout" ><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>退出系统</a></li>
+                </ul>
+                </li>
+                </ul>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>

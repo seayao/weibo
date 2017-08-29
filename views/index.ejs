@@ -1,0 +1,24 @@
+<%- include meta.ejs %>
+<!--头部导航-->
+<%- include pageLoading.ejs %>
+<!--头部导航-->
+<%- include header.ejs %>
+<!-- 主要内容 -->
+  <div class="container summary">
+    <div class="row">
+      <div class="col-sm-9 col-md-9 col-lg-9">
+        <!--内容区域-->
+        <%- include content.ejs %>
+      </div>
+      <div class="col-sm-3 col-md-3 col-lg-3 hidden-xs">
+        <!--侧边区域-->
+        <%- include aside.ejs %>
+      </div>
+    </div>
+    <!--弹出层提示-->
+    <%- include popTip.ejs %>
+    <!--页面底部-->
+    <%- include footer.ejs %>
+  </div>
+</body>
+</html>

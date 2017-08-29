@@ -1,0 +1,17 @@
+<!--显示成功或错误信息-->
+<% if(success){ %>
+<div class="alert alert-success" style="margin-bottom: 0">
+    <a href="#" class="close" data-dismiss="alert">
+        &times;
+    </a>
+    <b>成功：</b><%= success %>
+</div>
+<% } %>
+<% if(error){ %>
+<div class="alert alert-danger" style="margin-bottom: 0">
+    <a href="#" class="close" data-dismiss="alert">
+        &times;
+    </a>
+    <b>警告：</b><%= error %>
+</div>
+<% } %>

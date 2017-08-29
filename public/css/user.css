@@ -1,0 +1,140 @@
+body,html{
+    background-color: #f3f3f3;
+}
+
+.thumbnail{
+    -webkit-box-shadow: 0 1px 3px rgba(0,37,55,.05);
+    -moz-box-shadow: 0 1px 3px rgba(0,37,55,.05);
+    box-shadow: 0 1px 3px rgba(0,37,55,.05);
+}
+
+.avatar {
+    margin: 20px auto 8px;
+    padding: 4px;
+    width: 110px;
+    height: 110px;
+    background-color: rgba(201,226,248,.8);
+    position: relative;
+    -webkit-border-radius:50%;
+    -moz-border-radius:50%;
+    border-radius:50%;
+}
+
+.avatar img{
+    width: 102px;
+    height: 102px;
+    border-radius: 100%;
+    opacity: 1;
+}
+
+.avatar .user-gender{
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    background-color: #4ebbf9;
+    color:#fff;
+    position: absolute;
+    bottom: 6px;
+    right: 15px;
+    -webkit-border-radius:50%;
+    -moz-border-radius:50%;
+    border-radius:50%;
+}
+
+.user-nick{
+    margin-top: 0;
+}
+
+.user-main-tab,.tab-content{
+    background-color: #fff;
+}
+
+.select-area{
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+}
+
+.pub-tab-top .pub-tab-title{
+    line-height: 40px;
+    margin: 0 0 -5px 15px;
+    padding-top: 10px;
+    font-weight: 700;
+    color: #333;
+}
+
+.pub-show-list .pub-show-item{
+    border:none;
+}
+
+.pub-show-list .pub-show-item .pub-show-tips{
+    margin-bottom: 10px;
+}
+
+.pub-show-content .pub-show-content-img{
+    margin-right: 10px;
+}
+
+.pub-show-content .pub-show-content-txt{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.pub-show-content .pub-show-content-txt h3{
+    font-weight: 700;
+    color: #000;
+}
+
+.pub-show-list .pub-show-item .line{
+    width: 100%;
+    height: 1px;
+    margin-bottom: 20px;
+    background-color:#f0f2f7;
+}
+
+.follow-card{
+    background-color: #fff;
+    width: 100%;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+}
+
+.my-follow-line{
+    display: inline-block;
+    position: absolute;
+    width: 1px;
+    height: 40px;
+    margin-top: 15px;
+    background-color: #ddd;
+}
+
+.my-follow,.my-fans{
+    text-align: center;
+    padding: 12px 12px 6px;
+    font-size: 16px;
+}
+
+.pub-f-num{
+    margin-top: 6px;
+}
+
+.follow-list{
+    margin-top: 10px;
+}
+
+.follow-list li{
+    border-left: none;
+    border-right: none;
+    background-color: transparent;
+    padding: 15px 15px;
+    cursor: pointer;
+}
+
+.follow-list li:hover{
+    background-color: #eaeaea;
+}
