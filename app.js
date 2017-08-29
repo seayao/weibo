@@ -92,5 +92,5 @@ app.use(function (err, req, res, next) {
     res.render('error');
 });
 
-//导出模块啊啊啊啊啊
+//导出模块
 module.exports = app;
