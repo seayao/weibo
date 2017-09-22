@@ -1,17 +1,17 @@
-.aside-content{
+.aside-content {
     /*text-align: center;*/
 }
 
-.original-author{
+.original-author {
     background-color: #fff;
 }
 
-.original-author .original-author-title{
+.original-author .original-author-title {
     padding: 15px;
     border-bottom: 1px solid #f5f4f4;
 }
 
-.original-author-list li{
+.original-author-list li {
     border: none;
     cursor: pointer;
     margin-bottom: 0;
@@ -19,77 +19,93 @@
     padding: 0 15px;
 }
 
-.original-author-list li:hover{
+.original-author-list li:hover {
     background-color: #fbfbfb;
 }
 
-.original-author-list li:active{
+.original-author-list li:active {
     background-color: #bbb;
 }
 
-.original-author-head{
+.original-author-head {
     margin-top: 10px;
     margin-right: 10px;
 }
 
-.original-author-head img{
+.original-author-head img {
     width: 40px;
     height: 40px;
 }
 
-.original-author-info h5{
+.original-author-info h5 {
     color: #000;
 }
 
-.original-author-info p{
+.original-author-info p {
     font-size: 12px;
 }
 
-.concern-us{
+.concern-us {
     text-align: center;
 }
 
-.concern-us p{
+.concern-us p {
     display: inline-block;
     padding: 10px 0;
 }
 
-.concern-us .concern-list{
+.concern-us .concern-list {
     margin-bottom: 20px;
 }
 
-.concern-us .concern-list li img{
+.concern-us .concern-list .logo-item {
     width: 36px;
 }
 
-.footer-content{
+.concern-us .concern-list .logo-item-lang {
+    width: 40px;
+}
+
+.concern-us .concern-list .logo-item-hear {
+    width: 30px;
+}
+
+.concern-us .concern-list .logo-item-game {
+    width: 40px;
+}
+
+.concern-us .concern-list .logo-item-chat {
+    width: 33px;
+}
+
+.footer-content {
     margin-top: 20px;
     background-color: #fff;
 }
 
-.foot-content-bottom{
+.foot-content-bottom {
     padding: 10px;
 }
 
-.foot-content-right{
+.foot-content-right {
     position: relative;
 }
 
-.scan-log span{
+.scan-log span {
     margin-right: 10px;
 }
 
-.web-code-div{
+.web-code-div {
     display: none;
     position: absolute;
-    top: -160px;
-    left: -60px;
+    top: -140px;
+    left: -88px;
 }
 
-.web-code-div img{
-    width: 160px;
+.web-code-div img {
+    width: 140px;
     height: auto;
-    max-height: 160px;
 }
+
 
 
