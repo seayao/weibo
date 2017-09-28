@@ -176,13 +176,14 @@ $(document).ready(function () {
     });
 
     //点击扫码
-    $(".scan-log").click(function(e){
+    $(".scan-log").click(function (e) {
         e.preventDefault();
-        $(".web-code-div").fadeToggle("normal");
+        e.stopPropagation();
+        $(".web-code-div").fadeToggle("fast");
     });
 
     //全屏检测二维码如存在则点击消失
-    document.body.addEventListener('click', function (event) {
-        $(".web-code-div").css("display","none");
-    }, true);
+    $(window).click(function(){
+        $(".web-code-div").fadeOut("fast");
+    });
 });
