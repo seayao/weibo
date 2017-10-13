@@ -2,59 +2,59 @@
 var WIDTH = window.innerWidth, HEIGHT = window.innerHeight, POINT = 30;
 
 var canvas = document.getElementById('Mycanvas');
-    canvas.width = WIDTH,
-    canvas.height = HEIGHT - 50;
+canvas.width = WIDTH - 20,
+    canvas.height = HEIGHT - 60;
 var context = canvas.getContext('2d');
-    context.strokeStyle = 'rgba(0,0,0,0.02)',
+context.strokeStyle = 'rgba(0,0,0,0.02)',
     context.strokeWidth = 1,
     context.fillStyle = 'rgba(0,0,0,0.05)';
 var circleArr = [];
 
 //点：圆心xy坐标，半径，每帧移动xy的距离
-function Circle (x, y, r, moveX, moveY) {
-    this.x = x,
-    this.y = y,
-    this.r = r,
-    this.moveX = moveX,
+function Circle(x, y, r, moveX, moveY) {
+    this.x = x;
+    this.y = y;
+    this.r = r;
+    this.moveX = moveX;
     this.moveY = moveY;
 }
 //生成max和min之间的随机数
-function num (max, _min) {
+function num(max, _min) {
     var min = arguments[1] || 0;
-    return Math.floor(Math.random()*(max-min+1)+min);
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 // 绘制原点
-function drawCricle (cxt, x, y, r, moveX, moveY) {
-    var circle = new Circle(x, y, r, moveX, moveY)
-    cxt.beginPath()
-    cxt.arc(circle.x, circle.y, circle.r, 0, 2*Math.PI)
-    cxt.closePath()
+function drawCricle(cxt, x, y, r, moveX, moveY) {
+    var circle = new Circle(x, y, r, moveX, moveY);
+    cxt.beginPath();
+    cxt.arc(circle.x, circle.y, circle.r, 0, 2 * Math.PI);
+    cxt.closePath();
     cxt.fill();
     return circle;
 }
 
 //初始化生成原点
-function init () {
+function init() {
     circleArr = [];
     for (var i = 0; i < POINT; i++) {
-        circleArr.push(drawCricle(context, num(WIDTH), num(HEIGHT), num(20, 2), num(10, -10)/40, num(10, -10)/40));
+        circleArr.push(drawCricle(context, num(WIDTH), num(HEIGHT), num(20, 2), num(10, -10) / 40, num(10, -10) / 40));
     }
     draw();
 }
 
 //每帧绘制
-function draw () {
-    context.clearRect(0,0,canvas.width, canvas.height);
+function draw() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
     for (var i = 0; i < POINT; i++) {
         drawCricle(context, circleArr[i].x, circleArr[i].y, circleArr[i].r);
     }
     for (var i = 0; i < POINT; i++) {
         for (var j = 0; j < POINT; j++) {
             if (i + j < POINT) {
-                var A = Math.abs(circleArr[i+j].x - circleArr[i].x),
-                    B = Math.abs(circleArr[i+j].y - circleArr[i].y);
-                var lineLength = Math.sqrt(A*A + B*B);
-                var C = 1/lineLength*7-0.009;
+                var A = Math.abs(circleArr[i + j].x - circleArr[i].x),
+                    B = Math.abs(circleArr[i + j].y - circleArr[i].y);
+                var lineLength = Math.sqrt(A * A + B * B);
+                var C = 1 / lineLength * 7 - 0.009;
             }
         }
     }
