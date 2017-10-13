@@ -5,6 +5,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var multer = require('multer');
 //加载路由控制
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -23,21 +24,100 @@ var app = express();
 // view engine setup（设置模板位置和模板引擎格式）
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+//给模板添加方法
+app.locals['timeAgo'] = function (dateStr) {
+    //dateStr格式：2017-08-17 10:39:27
+    //转换成时间戳
+    var dateTimeStamp = Date.parse(dateStr.replace(/-/gi, "/"));
+    var minute = 1000 * 60;
+    var hour = minute * 60;
+    var day = hour * 24;
+    var month = day * 30;
+    var now = new Date().getTime();
+    var diffValue = now - dateTimeStamp;
+    if (diffValue < 0) {
+        return;
+    }
+    var monthC = diffValue / month;
+    var dayC = diffValue / day;
+    var hourC = diffValue / hour;
+    var minC = diffValue / minute;
+    var result;
+    if (monthC >= 12) {
+        result = dateStr;
+    }
+    else if (monthC >= 1) {
+        result = "" + parseInt(monthC) + "个月前";
+    }
+    else if (dayC >= 1) {
+        result = "" + parseInt(dayC) + "天前";
+    }
+    else if (hourC >= 1) {
+        result = "" + parseInt(hourC) + "小时前";
+    }
+    else if (minC >= 1) {
+        result = "" + parseInt(minC) + "分钟前";
+    } else if (minC < 1) {
+        result = "刚刚";
+    }
+    return result;
+};
 
-app.use(flash());//定义使用 flash 功能
+app.locals['cutStr'] = function (str, len, endType) {
+    endType = endType || "...";
+    len = len || 150;
+    var str_length = 0;
+    var str_len = str.length;
+    var str_cut = new String();
+    var char;
+    for (var i = 0; i < str_len; i++) {
+        char = str.charAt(i);
+        str_length++;
+        if (decodeURIComponent(char).length > 4) {
+            //中文字符的长度经编码之后大于4
+            str_length++;
+        }
+        str_cut = str_cut.concat(char);
+        if (str_length >= len) {
+            str_cut = str_cut.concat(endType);
+            str_cut += ' <a href="">阅读全文</a>';
+            return str_cut;
+        }
+    }
+    //如果给定字符串小于指定长度，则返回源字符串；
+    if (str_length < len) {
+        return str;
+    }
+};
+
+//定义使用 flash 功能
+app.use(flash());
 
 // uncomment after placing your favicon in /public
 //标签显示图标
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
 //定义日志和输出级别
 app.use(logger('dev'));
+
 //定义数据解析器
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+
 //定义cookie解析器
 app.use(cookieParser());
+
 //定义静态文件目录
 app.use(express.static(path.join(__dirname, 'public')));
+
+//定义文件上传模块
+app.use(multer({
+    dest: './public/upload/head',
+    rename: function (fieldname, filename) {
+        filename = "head_" + Math.round(new Date().getTime() / 1000) + "_" + Math.random().toString(16).substring(2).substr(0, 6);
+        return filename;
+    }
+}));
 
 //提供session支持（与教程中的区别）
 app.use(session({
@@ -51,12 +131,12 @@ app.use(session({
         db: settings.db,
         host: settings.host,
         port: settings.port,
-        url: 'mongodb://localhost/'+settings.db
+        url: 'mongodb://localhost/' + settings.db
     })
 }));
 
 // 视图交互：实现用户不同登陆状态下显示不同的页面及显示登陆注册等时的成功和错误等提示信息
-app.use(function(req, res, next){
+app.use(function (req, res, next) {
     console.log("app.usr local");
     //res.locals.xxx实现xxx变量全局化，在其他页面直接访问变量名即可
     //访问session数据：用户信息

@@ -8,6 +8,8 @@ function User(user) {
     this.useraccount = user.useraccount;
     this.usernick = user.usernick;
     this.password = user.password;
+    this.head = user.head;
+    this.gender = user.gender;
 }
 //输出User对象
 module.exports = User;
@@ -16,16 +18,18 @@ module.exports = User;
 User.prototype.save = function save(callback) {
     var user = {//用户信息
         useraccount: this.useraccount,
-        usernick:this.usernick,
-        password: this.password
+        usernick: this.usernick,
+        password: this.password,
+        head: this.head,
+        gender: this.gender
     };
 
-    mongodb.open(function(err, db) {
+    mongodb.open(function (err, db) {
         if (err) {
             return callback(err);
         }
         //读取users集合，users相当于数据库中的表
-        db.collection('users', function(err, collection) {//定义集合名称users
+        db.collection('users', function (err, collection) {//定义集合名称users
             if (err) {
                 mongodb.close();
                 return callback(err);
@@ -34,27 +38,28 @@ User.prototype.save = function save(callback) {
             // collection.ensureIndex('name', {unique: true});
 
             //把user对象中的数据，即用户注册信息写入users集合中
-            collection.insert(user, {safe: true}, function(err, user) {
+            collection.insert(user, {safe: true}, function (err, user) {
                 mongodb.close();
                 callback(err, user);
             });
         });
     });
 };
-//Usr对象方法：从数据库中查找指定用户的信息
-User.get = function get(useraccount,callback) {
-    mongodb.open(function(err, db) {
+
+//User对象方法：从数据库中查找指定用户的信息
+User.get = function get(useraccount, callback) {
+    mongodb.open(function (err, db) {
         if (err) {
             return callback(err);
         }
         //读取users集合
-        db.collection('users', function(err, collection) {
+        db.collection('users', function (err, collection) {
             if (err) {
                 mongodb.close();
                 return callback(err);
             }
             //从users集合中查找name属性为username的记录
-            collection.findOne({useraccount:useraccount}, function(err, doc) {
+            collection.findOne({useraccount: useraccount}, function (err, doc) {
                 mongodb.close();
                 if (doc) {
                     //封装查询结果为User对象
@@ -64,6 +69,33 @@ User.get = function get(useraccount,callback) {
                     callback(err, null);
                 }
             });
+        });
+    });
+};
+
+//User对象方法：更新/编辑用户信息
+User.update = function update(useraccount, usernick, password, head, callback) {
+    mongodb.open(function (err, db) {
+        if (err) {
+            return callback(err);
+        }
+        //读取users集合
+        db.collection('users', function (err, collection) {
+            if (err) {
+                mongodb.close();
+                return callback(err);
+            }
+            //更新用户信息
+            collection.update({useraccount: useraccount},
+                {
+                    $set: {usernick: usernick, password: password, head: head}
+                }, function (err) {
+                    mongodb.close();
+                    if (err) {
+                        return callback(err);
+                    }
+                    callback(null);
+                });
         });
     });
 };

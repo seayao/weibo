@@ -1,0 +1,11 @@
+.area-ad{
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.area-ad img{
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+}

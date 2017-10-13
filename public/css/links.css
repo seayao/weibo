@@ -1,0 +1,67 @@
+.footer-content {
+    padding: 0 10px;
+    margin-top: 10px;
+    background-color: #fff;
+}
+
+.concern-us {
+    text-align: center;
+}
+
+.concern-us p {
+    display: inline-block;
+    padding: 10px 0;
+}
+
+.concern-us .concern-list {
+    margin-bottom: 20px;
+}
+
+.concern-us .concern-list .logo-item {
+    width: 36px;
+}
+
+.concern-us .concern-list .logo-item-lang {
+    width: 40px;
+}
+
+.concern-us .concern-list .logo-item-hear {
+    width: 30px;
+}
+
+.concern-us .concern-list .logo-item-game {
+    width: 40px;
+}
+
+.concern-us .concern-list .logo-item-chat {
+    width: 33px;
+}
+
+.foot-content-bottom {
+    padding: 10px;
+}
+
+.foot-copyright{
+    font-size: 12px;
+}
+
+.foot-content-right {
+    position: relative;
+    font-size: 12px;
+}
+
+.scan-log span {
+    margin-right: 10px;
+}
+
+.web-code-div {
+    display: none;
+    position: absolute;
+    top: -140px;
+    left: -10px;
+}
+
+.web-code-div img {
+    width: 140px;
+    height: auto;
+}

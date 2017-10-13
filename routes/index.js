@@ -15,7 +15,6 @@ router.get('/', function (req, res) {
         //调用模板引擎，并传递参数给模板引擎
         res.render('index', {title: 'Answer - 为你开启探索知识的大门', posts: posts});
     });
-
 });
 
 //发现模块
@@ -58,7 +57,8 @@ router.get('/user/:useraccount', function (req, res) {//创建路由规则
             }
             //调用user模板引擎，并传送数据（用户名和微博集合）
             res.render('user', {
-                title: user.useraccount+"的主页",
+                title: user.useraccount + "的主页",
+                user: user,
                 posts: posts
             });
         });
@@ -73,22 +73,14 @@ router.get('/setting/:useraccount', function (req, res) {//创建路由规则
             req.flash('error', '用户不存在');
             return res.redirect('/');
         }
-        //调用对象的方法用户存在，从数据库获取该用户的微博信息
-        Post.get(user.useraccount, function (err, posts) {
-            if (err) {
-                req.flash('error', err);
-                return res.redirect('/');
-            }
-            //调用user模板引擎，并传送数据（用户名和微博集合）
-            res.render('setting', {
-                title: "个人设置",
-                posts: posts
-            });
+        res.render('setting', {
+            title: "个人设置",
+            user: user
         });
     });
 });
 
-//用户编辑个人信息页面
+//用户编辑个人信息页面获取
 router.get('/user/:useraccount/edit', function (req, res) {//创建路由规则
     User.get(req.params.useraccount, function (err, user) {
         //判断用户是否存在
@@ -96,20 +88,46 @@ router.get('/user/:useraccount/edit', function (req, res) {//创建路由规则
             req.flash('error', '用户不存在');
             return res.redirect('/');
         }
-        //调用对象的方法用户存在，从数据库获取该用户的微博信息
-        Post.get(user.useraccount, function (err, posts) {
-            if (err) {
-                req.flash('error', err);
-                return res.redirect('/');
-            }
-            //调用user模板引擎，并传送数据（用户名和微博集合）
-            res.render('edit', {
-                title: "编辑个人资料",
-                posts: posts
-            });
+        res.render('edit', {
+            title: "编辑个人资料",
+            user: user
         });
     });
 });
+//用户编辑个人信息页面操作
+router.post('/user/:useraccount/edit', function (req, res) {//路由规则/post
+    var currentUser = req.session.user;//获取当前用户信息
+    var userHead = req.files.head;
+    var headUrl;
+    if (!userHead) {
+        req.flash('error', '请选择文件');
+        res.redirect('/user/' + currentUser.useraccount + '/edit');
+    } else {
+        headUrl = '/upload/head/' + userHead.name;
+        User.get(currentUser.useraccount, function (err, userInfo) {
+            if (err) {
+                req.flash('error', err);
+                res.redirect('/user/' + currentUser.useraccount + '/edit');
+            }
+            User.update(currentUser.useraccount, userInfo.usernick, userInfo.password, headUrl, function (err) {
+                if (err) {
+                    req.flash('error', err);
+                    res.redirect('/user/' + currentUser.useraccount + '/edit');
+                }
+                //更新session
+                req.session.user = new User({
+                    usernick: userInfo.usernick,
+                    useraccount: currentUser.useraccount,
+                    password: userInfo.password,
+                    head: headUrl
+                });
+                req.flash('success', '头像上传成功');
+                res.redirect('/user/' + currentUser.useraccount + '/edit');
+            });
+        });
+    }
+});
+
 
 //发表
 router.get('/publish', checkLogin);//页面权限控制
@@ -118,15 +136,15 @@ router.get('/publish', function (req, res) {
 });
 router.post('/publish', function (req, res) {//路由规则/post
     var currentUser = req.session.user;//获取当前用户信息
-    if(req.body.title == ""){//发布信息不能为空
+    if (req.body.title == "") {//发布信息不能为空
         req.flash('error', '标题不能为空！');
         return res.redirect('/publish');
-    }else if(req.body.content == ""){//发布信息不能为空
+    } else if (req.body.content == "") {//发布信息不能为空
         req.flash('error', '正文不能为空！');
         return res.redirect('/publish');
     }
     //实例化Post对象
-    var post = new Post(currentUser.name, req.body.title, req.body.content);//req.body.获取用户发表的内容
+    var post = new Post(currentUser.useraccount, currentUser.usernick, currentUser.head, req.body.title, req.body.content, req.body.cover);//req.body.获取用户发表的内容
     //调用实例方法，发表微博，并把信息保存到MongoDB数据库
     post.save(function (err) {
         if (err) {
@@ -134,7 +152,7 @@ router.post('/publish', function (req, res) {//路由规则/post
             return res.redirect('/publish');
         }
         req.flash('success', '发表成功');
-        res.redirect('/u/' + currentUser.name);
+        res.redirect('/user/' + currentUser.useraccount);
     });
 });
 
@@ -149,13 +167,13 @@ router.post('/reg', function (req, res) {
         //使用req.body.username获取提交请求的用户名，username为input的name
         req.flash('error', "请设置用户昵称！");//保存信息到error中，然后通过视图交互传递提示信息，调用alert.ejs模块进行显示
         return res.redirect('/reg');//返回reg页面
-    }else if(req.body.useraccount == ""){
+    } else if (req.body.useraccount == "") {
         req.flash('error', "请设置登录账号！");
         return res.redirect('/reg');
-    }else if(req.body.userpwd == ""){
+    } else if (req.body.userpwd == "") {
         req.flash('error', "请设置登录密码！");
         return res.redirect('/reg');
-    }else if(req.body.pwdrepeat == ""){
+    } else if (req.body.pwdrepeat == "") {
         req.flash('error', "请重新输入登录密码！");
         return res.redirect('/reg');
     }
@@ -170,16 +188,18 @@ router.post('/reg', function (req, res) {
 
     //用新注册用户信息对象实例化User对象，用于存储新注册用户和判断注册用户是否存在
     var newUser = new User({
-        usernick:req.body.usernick,
+        usernick: req.body.usernick,
         useraccount: req.body.useraccount,
-        password: password
+        password: password,
+        head: null,
+        gender: req.body.gender
     });
     //检查用户名是否已经存在
     User.get(newUser.useraccount, function (err, user) {
-        if(user){
+        if (user) {
             if (user.usernick == newUser.usernick) {
                 err = "该昵称已被占用！";
-            }else if(user.useraccount == newUser.useraccount){
+            } else if (user.useraccount == newUser.useraccount) {
                 err = "该账号已存在，找回密码？";
             }
         }
@@ -195,12 +215,13 @@ router.post('/reg', function (req, res) {
                 req.flash('error', err);
                 return res.redirect('/reg');
             }
-            req.session.user = newUser.useraccount;//保存用户名，用于判断用户是否已登录
+            req.session.user = newUser;//保存用户信息，用于判断用户是否已登录
             req.flash('success', req.session.user + "注册成功!");
             res.redirect('/');
         });
     });
 });
+
 //用户登录
 router.get('/login', checkNotLogin);//登陆功能只对未登录用户可使用
 router.get('/login', function (req, res) {
@@ -212,7 +233,7 @@ router.post('/login', function (req, res) {
     if (req.body.useraccount == "") {
         req.flash('error', "请输入用户账号！");
         return res.redirect('/login');
-    }else if(req.body.userpwd == ""){
+    } else if (req.body.userpwd == "") {
         req.flash('error', "请输入密码！");
         return res.redirect('/login');
     }
@@ -229,11 +250,13 @@ router.post('/login', function (req, res) {
             req.flash('error', "用户密码不正确！");
             return res.redirect('/login');
         }
-        req.session.user = user.useraccount;//保存用户信息
+        //保存用户信息
+        req.session.user = user;
         req.flash('success', "登录成功！");
         res.redirect('/');
     });
 });
+
 //用户登出
 router.get('/logout', checkLogin);//退出功能只对已登陆的用户可用
 router.get('/logout', function (req, res) {

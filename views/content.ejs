@@ -12,350 +12,78 @@
             <li role="presentation"><a href="#">人工智能</a></li>
         </ul>
     </div>
-    <div class="panel panel-default content-item">
+    <% posts.forEach(function(post, index){ %>
+    <div class="panel panel-default content-item" style="margin-bottom: 15px">
         <div class="panel-body">
             <div class="clearfix">
                 <p class="list-group-item-text pull-left pub-show-tips">
-                    <span>大漠穷秋</span>
-                    <span>Angular.js</span>
+                    <span>标签、图片变形处理中</span>
                 </p>
-                <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
+                <p class="list-group-item-text pull-right pub-show-tips"><%= timeAgo(post.time) %></p>
             </div>
-            <div class="pub-show-content clearfix">
-                <div class="pull-left pub-show-content-txt">
-                    <h3 class="list-group-item-heading pull-left">List group item heading</h3>
+            <div class="pub-show-title">
+                <a class="list-group-item-heading"><%= post.title %></a>
+            </div>
+            <div class="pub-show-user clearfix">
+                <div class="pub-show-user-head pull-left">
+                    <% if(post.head){ %>
+                    <a href="/user/<%= post.useraccount %>">
+                        <img src="<%= post.head %>" alt="头像" onerror="avatarError(this)">
+                    </a>
+                    <% }else{ %>
+                    <a href="/user/<%= post.useraccount %>">
+                        <img src="/images/default/default_avatar.jpg" alt="头像" onerror="avatarError(this)">
+                    </a>
+                    <% } %>
+                </div>
+                <div class="pub-show-user-info pull-left">
+                    <a href="/user/<%= post.useraccount %>"><%= post.usernick %></a>
                 </div>
             </div>
-            <ul class="list-inline pub-show-foot">
-                <li><span class="glyphicon glyphicon-heart" aria-hidden="true">12个人点赞</span></li>
-                <li><span class="glyphicon glyphicon-comment" aria-hidden="true">50条评论</span></li>
-                <li><span class="glyphicon glyphicon-star" aria-hidden="true">收藏</span></li>
-                <li><span class="glyphicon glyphicon-share-alt" aria-hidden="true">分享</span></li>
-            </ul>
+            <div class="row pub-show-content clearfix">
+                <% if(post.cover){ %>
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                    <div class="pub-show-content-img pull-left">
+                        <img src="<%= post.cover %>" alt="缩略图" onerror="imageError(this)">
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-9">
+                    <div class="pub-show-content-content pull-left">
+                        <div class="pub-show-content-txt">
+                            <%- cutStr(post.content) %>
+                        </div>
+                    </div>
+                </div>
+                <% } else { %>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="pub-show-content-content">
+                        <div class="pub-show-content-txt">
+                            <%- cutStr(post.content) %>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+            <div class="pub-show-foot">
+                <ul class="list-inline">
+                    <li>
+                        <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;12个人点赞
+                    </li>
+                    <li>
+                        <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>&nbsp;50条评论
+                    </li>
+                    <li>
+                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;收藏
+                    </li>
+                    <li>
+                        <span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>&nbsp;分享
+                    </li>
+                    <li>
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
-
-    <div class="panel panel-default content-item">
-        <div class="panel-body">
-            <div class="clearfix">
-                <p class="list-group-item-text pull-left pub-show-tips">
-                    <span>大漠穷秋</span>
-                    <span>Angular.js</span>
-                </p>
-                <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
-            </div>
-            <div class="pub-show-content clearfix">
-                <div class="pull-left pub-show-content-txt">
-                    <h3 class="list-group-item-heading pull-left">List group item heading</h3>
-                </div>
-            </div>
-            <ul class="list-inline pub-show-foot">
-                <li><span class="glyphicon glyphicon-heart" aria-hidden="true">12个人点赞</span></li>
-                <li><span class="glyphicon glyphicon-comment" aria-hidden="true">50条评论</span></li>
-                <li><span class="glyphicon glyphicon-star" aria-hidden="true">收藏</span></li>
-                <li><span class="glyphicon glyphicon-share-alt" aria-hidden="true">分享</span></li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="panel panel-default content-item">
-        <div class="panel-body">
-            <div class="clearfix">
-                <p class="list-group-item-text pull-left pub-show-tips">
-                    <span>大漠穷秋</span>
-                    <span>Angular.js</span>
-                </p>
-                <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
-            </div>
-            <div class="pub-show-content clearfix">
-                <div class="pull-left pub-show-content-img">
-                    <img src="/images/index1.jpg" alt="">
-                </div>
-                <div class="pull-left pub-show-content-txt">
-                    <h3 class="list-group-item-heading pull-left">List group item heading</h3>
-                </div>
-            </div>
-            <ul class="list-inline pub-show-foot">
-                <li><span class="glyphicon glyphicon-heart" aria-hidden="true">12个人点赞</span></li>
-                <li><span class="glyphicon glyphicon-comment" aria-hidden="true">50条评论</span></li>
-                <li><span class="glyphicon glyphicon-star" aria-hidden="true">收藏</span></li>
-                <li><span class="glyphicon glyphicon-share-alt" aria-hidden="true">分享</span></li>
-            </ul>
-        </div>
-    </div>
-    <div class="panel panel-default content-item">
-        <div class="panel-body">
-            <div class="clearfix">
-                <p class="list-group-item-text pull-left pub-show-tips">
-                    <span>大漠穷秋</span>
-                    <span>Angular.js</span>
-                </p>
-                <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
-            </div>
-            <div class="pub-show-content clearfix">
-                <div class="pull-left pub-show-content-img">
-                    <img src="/images/index1.jpg" alt="">
-                </div>
-                <div class="pull-left pub-show-content-txt">
-                    <h3 class="list-group-item-heading pull-left">List group item heading</h3>
-                </div>
-            </div>
-            <ul class="list-inline pub-show-foot">
-                <li><span class="glyphicon glyphicon-heart" aria-hidden="true">12个人点赞</span></li>
-                <li><span class="glyphicon glyphicon-comment" aria-hidden="true">50条评论</span></li>
-                <li><span class="glyphicon glyphicon-star" aria-hidden="true">收藏</span></li>
-                <li><span class="glyphicon glyphicon-share-alt" aria-hidden="true">分享</span></li>
-            </ul>
-        </div>
-    </div>
-    <div class="panel panel-default content-item">
-        <div class="panel-body">
-            <div class="clearfix">
-                <p class="list-group-item-text pull-left pub-show-tips">
-                    <span>大漠穷秋</span>
-                    <span>Angular.js</span>
-                </p>
-                <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
-            </div>
-            <div class="pub-show-content clearfix">
-                <div class="pull-left pub-show-content-img">
-                    <img src="/images/index1.jpg" alt="">
-                </div>
-                <div class="pull-left pub-show-content-txt">
-                    <h3 class="list-group-item-heading pull-left">List group item heading</h3>
-                </div>
-            </div>
-            <ul class="list-inline pub-show-foot">
-                <li><span class="glyphicon glyphicon-heart" aria-hidden="true">12个人点赞</span></li>
-                <li><span class="glyphicon glyphicon-comment" aria-hidden="true">50条评论</span></li>
-                <li><span class="glyphicon glyphicon-star" aria-hidden="true">收藏</span></li>
-                <li><span class="glyphicon glyphicon-share-alt" aria-hidden="true">分享</span></li>
-            </ul>
-        </div>
-    </div>
-    <div class="panel panel-default content-item">
-        <div class="panel-body">
-            <div class="clearfix">
-                <p class="list-group-item-text pull-left pub-show-tips">
-                    <span>大漠穷秋</span>
-                    <span>Angular.js</span>
-                </p>
-                <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
-            </div>
-            <div class="pub-show-content clearfix">
-                <div class="pull-left pub-show-content-img">
-                    <img src="/images/index1.jpg" alt="">
-                </div>
-                <div class="pull-left pub-show-content-txt">
-                    <h3 class="list-group-item-heading pull-left">List group item heading</h3>
-                </div>
-            </div>
-            <ul class="list-inline pub-show-foot">
-                <li><span class="glyphicon glyphicon-heart" aria-hidden="true">12个人点赞</span></li>
-                <li><span class="glyphicon glyphicon-comment" aria-hidden="true">50条评论</span></li>
-                <li><span class="glyphicon glyphicon-star" aria-hidden="true">收藏</span></li>
-                <li><span class="glyphicon glyphicon-share-alt" aria-hidden="true">分享</span></li>
-            </ul>
-        </div>
-    </div>
-    <div class="panel panel-default content-item">
-        <div class="panel-body">
-            <div class="clearfix">
-                <p class="list-group-item-text pull-left pub-show-tips">
-                    <span>大漠穷秋</span>
-                    <span>Angular.js</span>
-                </p>
-                <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
-            </div>
-            <div class="pub-show-content clearfix">
-                <div class="pull-left pub-show-content-img">
-                    <img src="/images/index1.jpg" alt="">
-                </div>
-                <div class="pull-left pub-show-content-txt">
-                    <h3 class="list-group-item-heading pull-left">List group item heading</h3>
-                </div>
-            </div>
-            <ul class="list-inline pub-show-foot">
-                <li><span class="glyphicon glyphicon-heart" aria-hidden="true">12个人点赞</span></li>
-                <li><span class="glyphicon glyphicon-comment" aria-hidden="true">50条评论</span></li>
-                <li><span class="glyphicon glyphicon-star" aria-hidden="true">收藏</span></li>
-                <li><span class="glyphicon glyphicon-share-alt" aria-hidden="true">分享</span></li>
-            </ul>
-        </div>
-    </div>
-    <div class="panel panel-default content-item">
-        <div class="panel-body">
-            <div class="clearfix">
-                <p class="list-group-item-text pull-left pub-show-tips">
-                    <span>大漠穷秋</span>
-                    <span>Angular.js</span>
-                </p>
-                <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
-            </div>
-            <div class="pub-show-content clearfix">
-                <div class="pull-left pub-show-content-img">
-                    <img src="/images/index1.jpg" alt="">
-                </div>
-                <div class="pull-left pub-show-content-txt">
-                    <h3 class="list-group-item-heading pull-left">List group item heading</h3>
-                </div>
-            </div>
-            <ul class="list-inline pub-show-foot">
-                <li><span class="glyphicon glyphicon-heart" aria-hidden="true">12个人点赞</span></li>
-                <li><span class="glyphicon glyphicon-comment" aria-hidden="true">50条评论</span></li>
-                <li><span class="glyphicon glyphicon-star" aria-hidden="true">收藏</span></li>
-                <li><span class="glyphicon glyphicon-share-alt" aria-hidden="true">分享</span></li>
-            </ul>
-        </div>
-    </div>
-    <div class="panel panel-default content-item">
-        <div class="panel-body">
-            <div class="clearfix">
-                <p class="list-group-item-text pull-left pub-show-tips">
-                    <span>大漠穷秋</span>
-                    <span>Angular.js</span>
-                </p>
-                <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
-            </div>
-            <div class="pub-show-content clearfix">
-                <div class="pull-left pub-show-content-img">
-                    <img src="/images/index1.jpg" alt="">
-                </div>
-                <div class="pull-left pub-show-content-txt">
-                    <h3 class="list-group-item-heading pull-left">List group item heading</h3>
-                </div>
-            </div>
-            <ul class="list-inline pub-show-foot">
-                <li><span class="glyphicon glyphicon-heart" aria-hidden="true">12个人点赞</span></li>
-                <li><span class="glyphicon glyphicon-comment" aria-hidden="true">50条评论</span></li>
-                <li><span class="glyphicon glyphicon-star" aria-hidden="true">收藏</span></li>
-                <li><span class="glyphicon glyphicon-share-alt" aria-hidden="true">分享</span></li>
-            </ul>
-        </div>
-    </div>
-    <div class="panel panel-default content-item">
-        <div class="panel-body">
-            <div class="clearfix">
-                <p class="list-group-item-text pull-left pub-show-tips">
-                    <span>大漠穷秋</span>
-                    <span>Angular.js</span>
-                </p>
-                <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
-            </div>
-            <div class="pub-show-content clearfix">
-                <div class="pull-left pub-show-content-img">
-                    <img src="/images/index1.jpg" alt="">
-                </div>
-                <div class="pull-left pub-show-content-txt">
-                    <h3 class="list-group-item-heading pull-left">List group item heading</h3>
-                </div>
-            </div>
-            <ul class="list-inline pub-show-foot">
-                <li><span class="glyphicon glyphicon-heart" aria-hidden="true">12个人点赞</span></li>
-                <li><span class="glyphicon glyphicon-comment" aria-hidden="true">50条评论</span></li>
-                <li><span class="glyphicon glyphicon-star" aria-hidden="true">收藏</span></li>
-                <li><span class="glyphicon glyphicon-share-alt" aria-hidden="true">分享</span></li>
-            </ul>
-        </div>
-    </div>
-    <div class="panel panel-default content-item">
-        <div class="panel-body">
-            <div class="clearfix">
-                <p class="list-group-item-text pull-left pub-show-tips">
-                    <span>大漠穷秋</span>
-                    <span>Angular.js</span>
-                </p>
-                <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
-            </div>
-            <div class="pub-show-content clearfix">
-                <div class="pull-left pub-show-content-img">
-                    <img src="/images/index1.jpg" alt="">
-                </div>
-                <div class="pull-left pub-show-content-txt">
-                    <h3 class="list-group-item-heading pull-left">List group item heading</h3>
-                </div>
-            </div>
-            <ul class="list-inline pub-show-foot">
-                <li><span class="glyphicon glyphicon-heart" aria-hidden="true">12个人点赞</span></li>
-                <li><span class="glyphicon glyphicon-comment" aria-hidden="true">50条评论</span></li>
-                <li><span class="glyphicon glyphicon-star" aria-hidden="true">收藏</span></li>
-                <li><span class="glyphicon glyphicon-share-alt" aria-hidden="true">分享</span></li>
-            </ul>
-        </div>
-    </div>
-    <div class="panel panel-default content-item">
-        <div class="panel-body">
-            <div class="clearfix">
-                <p class="list-group-item-text pull-left pub-show-tips">
-                    <span>大漠穷秋</span>
-                    <span>Angular.js</span>
-                </p>
-                <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
-            </div>
-            <div class="pub-show-content clearfix">
-                <div class="pull-left pub-show-content-img">
-                    <img src="/images/index1.jpg" alt="">
-                </div>
-                <div class="pull-left pub-show-content-txt">
-                    <h3 class="list-group-item-heading pull-left">List group item heading</h3>
-                </div>
-            </div>
-            <ul class="list-inline pub-show-foot">
-                <li><span class="glyphicon glyphicon-heart" aria-hidden="true">12个人点赞</span></li>
-                <li><span class="glyphicon glyphicon-comment" aria-hidden="true">50条评论</span></li>
-                <li><span class="glyphicon glyphicon-star" aria-hidden="true">收藏</span></li>
-                <li><span class="glyphicon glyphicon-share-alt" aria-hidden="true">分享</span></li>
-            </ul>
-        </div>
-    </div>
-    <div class="panel panel-default content-item">
-        <div class="panel-body">
-            <div class="clearfix">
-                <p class="list-group-item-text pull-left pub-show-tips">
-                    <span>大漠穷秋</span>
-                    <span>Angular.js</span>
-                </p>
-                <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
-            </div>
-            <div class="pub-show-content clearfix">
-                <div class="pull-left pub-show-content-img">
-                    <img src="/images/index1.jpg" alt="">
-                </div>
-                <div class="pull-left pub-show-content-txt">
-                    <h3 class="list-group-item-heading pull-left">List group item heading</h3>
-                </div>
-            </div>
-            <ul class="list-inline pub-show-foot">
-                <li><span class="glyphicon glyphicon-heart" aria-hidden="true">12个人点赞</span></li>
-                <li><span class="glyphicon glyphicon-comment" aria-hidden="true">50条评论</span></li>
-                <li><span class="glyphicon glyphicon-star" aria-hidden="true">收藏</span></li>
-                <li><span class="glyphicon glyphicon-share-alt" aria-hidden="true">分享</span></li>
-            </ul>
-        </div>
-    </div>
-    <div class="panel panel-default content-item">
-        <div class="panel-body">
-            <div class="clearfix">
-                <p class="list-group-item-text pull-left pub-show-tips">
-                    <span>大漠穷秋</span>
-                    <span>Angular.js</span>
-                </p>
-                <p class="list-group-item-text pull-right pub-show-tips">1小时前</p>
-            </div>
-            <div class="pub-show-content clearfix">
-                <div class="pull-left pub-show-content-img">
-                    <img src="/images/index1.jpg" alt="">
-                </div>
-                <div class="pull-left pub-show-content-txt">
-                    <h3 class="list-group-item-heading pull-left">List group item heading</h3>
-                </div>
-            </div>
-            <ul class="list-inline pub-show-foot">
-                <li><span class="glyphicon glyphicon-heart" aria-hidden="true">12个人点赞</span></li>
-                <li><span class="glyphicon glyphicon-comment" aria-hidden="true">50条评论</span></li>
-                <li><span class="glyphicon glyphicon-star" aria-hidden="true">收藏</span></li>
-                <li><span class="glyphicon glyphicon-share-alt" aria-hidden="true">分享</span></li>
-            </ul>
-        </div>
-    </div>
+    <% }); %>
 </div>

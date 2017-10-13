@@ -4,17 +4,51 @@
 <% if(user){ %>
 <div class="container summary">
     <%- include alert.ejs %>
-    <div class="row user-info-head">
-        <div class="col-sm-12 col-md-12">
-            <div class="thumbnail">
-                <div class="avatar">
-                    <img class="img-circle" src="/images/head1.jpg" alt="...">
-                    <div class="user-gender"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
-                </div>
-                <div class="caption text-center">
-                    <h3 class="user-nick">用户昵称</h3>
-                    <p>个性签名……………………</p>
-                    <p><a href="/user/<%= user%>/edit" class="btn btn-primary" role="button">编辑个人资料</a></p>
+    <div class="user-info-head">
+        <div class="UserCover-image">
+            <img src="/images/banner1.jpg" alt="用户封面" onerror="imageError(this)">
+        </div>
+        <div class="userBase-info">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3 col-md-3" style="min-width: 168px;min-height: 160px">
+                        <div class="user-avatar">
+                            <div class="user-avatar-cover">
+                                <!--头像-->
+                                <% if(user.head){ %>
+                                <img src="<%= user.head %>" alt="头像" onerror="avatarError(this)">
+                                <% }else{ %>
+                                <img src="/images/default/default_avatar.jpg" alt="头像" onerror="avatarError(this)">
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-9 col-md-9">
+                        <div class="userBase-info-top">
+                            <h3 class="user-nick"><%= user.usernick %></h3>
+                            <!--性别-->
+                            <% if(user.gender == 1){ %>
+                            <div class="user-gender user-gender-male">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </div>
+                            <% }else if(user.gender == 0){ %>
+                            <div class="user-gender user-gender-female">
+                                <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                            </div>
+                            <% } else{ %>
+                            <div class="user-gender user-gender-male">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            </div>
+                            <% } %>
+                        </div>
+                        <div class="userBase-info-sign">
+                            <p>个性签名……………………</p>
+                        </div>
+                        <div class="pull-right">
+                            <a href="/user/<%= user.useraccount %>/edit" class="btn btn-primary"
+                               role="button">编辑个人资料</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -22,7 +56,7 @@
 
     <!-- 资源 -->
     <div class="row">
-        <div class="col-sm-8 col-md-8">
+        <div class="col-sm-9 col-md-9">
             <div class="select-area">
                 <ul class="nav nav-tabs user-main-tab" role="tablist" id="feature-tab">
                     <li class="active">
@@ -68,10 +102,12 @@
                                 </div>
                                 <div class="pub-show-content clearfix">
                                     <div class="pull-left pub-show-content-img">
-                                        <img src="https://pic1.zhimg.com/50/3f18e550c_im.jpg" alt="">
+                                        <img src="https://pic1.zhimg.com/50/3f18e550c_im.jpg" alt="缩略图"
+                                             onerror="imageError(this)">
                                     </div>
                                     <div class="pull-left pub-show-content-txt">
-                                        <h3 class="list-group-item-heading pull-left">item headingList group item heading1111111111</h3>
+                                        <h3 class="list-group-item-heading pull-left">item headingList group item
+                                            heading1111111111</h3>
                                     </div>
                                 </div>
                             </li>
@@ -104,10 +140,12 @@
                                 </div>
                                 <div class="pub-show-content clearfix">
                                     <div class="pull-left pub-show-content-img">
-                                        <img src="https://pic1.zhimg.com/50/3f18e550c_im.jpg" alt="">
+                                        <img src="https://pic1.zhimg.com/50/3f18e550c_im.jpg" alt="缩略图"
+                                             onerror="imageError(this)">
                                     </div>
                                     <div class="pull-left pub-show-content-txt">
-                                        <h3 class="list-group-item-heading pull-left">item headingList group item heading1111111111</h3>
+                                        <h3 class="list-group-item-heading pull-left">item headingList group item
+                                            heading1111111111</h3>
                                     </div>
                                 </div>
                             </li>
@@ -141,10 +179,12 @@
                                     </div>
                                     <div class="pub-show-content clearfix">
                                         <div class="pull-left pub-show-content-img">
-                                            <img src="https://pic1.zhimg.com/50/3f18e550c_im.jpg" alt="">
+                                            <img src="https://pic1.zhimg.com/50/3f18e550c_im.jpg" alt="缩略图"
+                                                 onerror="imageError(this)">
                                         </div>
                                         <div class="pull-left pub-show-content-txt">
-                                            <h3 class="list-group-item-heading pull-left">item headingList group item heading1111111111</h3>
+                                            <h3 class="list-group-item-heading pull-left">item headingList group item
+                                                heading1111111111</h3>
                                         </div>
                                     </div>
                                 </li>
@@ -179,10 +219,12 @@
                                     </div>
                                     <div class="pub-show-content clearfix">
                                         <div class="pull-left pub-show-content-img">
-                                            <img src="https://pic1.zhimg.com/50/3f18e550c_im.jpg" alt="">
+                                            <img src="https://pic1.zhimg.com/50/3f18e550c_im.jpg" alt="缩略图"
+                                                 onerror="imageError(this)">
                                         </div>
                                         <div class="pull-left pub-show-content-txt">
-                                            <h3 class="list-group-item-heading pull-left">item headingList group item heading1111111111</h3>
+                                            <h3 class="list-group-item-heading pull-left">item headingList group item
+                                                heading1111111111</h3>
                                         </div>
                                     </div>
                                 </li>
@@ -217,10 +259,12 @@
                                     </div>
                                     <div class="pub-show-content clearfix">
                                         <div class="pull-left pub-show-content-img">
-                                            <img src="https://pic1.zhimg.com/50/3f18e550c_im.jpg" alt="">
+                                            <img src="https://pic1.zhimg.com/50/3f18e550c_im.jpg" alt="缩略图"
+                                                 onerror="imageError(this)">
                                         </div>
                                         <div class="pull-left pub-show-content-txt">
-                                            <h3 class="list-group-item-heading pull-left">item headingList group item heading1111111111</h3>
+                                            <h3 class="list-group-item-heading pull-left">item headingList group item
+                                                heading1111111111</h3>
                                         </div>
                                     </div>
                                 </li>
@@ -231,7 +275,7 @@
             </div>
         </div>
 
-        <div class="col-sm-4 col-md-4">
+        <div class="col-sm-3 col-md-3">
             <div class="follow-card">
                 <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-6">
@@ -275,9 +319,10 @@
                     您的主页被浏览70次
                 </li>
             </ul>
+
+            <%- include links.ejs %>
         </div>
     </div>
     <%- include footer.ejs %>
 </div>
 <% } %>
-<%- include posts.ejs %><!--替换了书中的partial函数-->

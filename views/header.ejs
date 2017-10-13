@@ -33,16 +33,20 @@
                 </ul>
                 <% }else{ %>
                 <!--登录后，显示发表按钮-->
-                <button type="button" class="btn btn-primary publish-btn">投稿</button>
+                <a href="/publish" type="button" class="btn btn-primary publish-btn" role="button">投稿</a>
                 <!--登录后，显示个人信息-->
                 <ul class="nav navbar-nav pull-right user-handle-list">
                 <li class="user-handle-item"><a href="#"><span class="glyphicon glyphicon-bell icon-style message-tips" aria-hidden="true"></span></a></li>
                 <li class="user-handle-item"><a href="#"><span class="glyphicon glyphicon-send icon-style private-letter" aria-hidden="true"></span></a></li>
                 <li class="dropdown user-handle-item">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img class="img-circle user-head" src="/images/head_small1.jpg" alt=""><span class="caret"></span></a>
+                <% if(user.head){ %>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img class="img-circle user-head" src="<%= user.head %>" alt="头像" onerror="avatarError(this)"></a>
+                <% }else{ %>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img class="img-circle user-head" src="/images/default/default_avatar.jpg" alt="头像" onerror="avatarError(this)"></a>
+                <% } %>
                 <ul class="dropdown-menu user-handle-item-menu" role="menu">
-                <li><a href="/user/<%= user%>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>我的主页</a></li>
-                <li><a href="/setting/<%= user%>" ><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>个人设置</a></li>
+                <li><a href="/user/<%= user.useraccount%>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>我的主页</a></li>
+                <li><a href="/setting/<%= user.useraccount%>" ><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>个人设置</a></li>
                 <li><a href="/logout" ><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>退出系统</a></li>
                 </ul>
                 </li>

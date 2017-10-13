@@ -7,13 +7,6 @@ $(document).ready(function () {
         $("#main-loading").fadeOut("normal");
     },400);
 
-    //点击发表时执行
-    $(".publish-btn").click(function (e) {
-        e.preventDefault();
-        //弹出提示框
-        $('.publish-modal').modal('toggle');
-    });
-
     //顶部导航消息提示
     $(".message-tips").flashing({
         color:'#f01414'
@@ -31,15 +24,15 @@ $(document).ready(function () {
     $(function () { $("[data-toggle='tooltip']").tooltip(); });
 
     //轮播控制
-    var swiper = new Swiper('.swiper-container', {
-        speed:600,
-        autoplay: 5000,
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        autoplayDisableOnInteraction : false,
-        loop:true,
-        keyboardControl:true
-    });
+    //var swiper = new Swiper('.swiper-container', {
+    //    speed:600,
+    //    autoplay: 5000,
+    //    pagination: '.swiper-pagination',
+    //    paginationClickable: true,
+    //    autoplayDisableOnInteraction : false,
+    //    loop:true,
+    //    keyboardControl:true
+    //});
 
     //智能隐藏导航栏
     var new_scroll_position = 0;

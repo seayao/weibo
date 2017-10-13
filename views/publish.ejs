@@ -1,27 +1,33 @@
 <%- include meta.ejs %>
+<link rel="stylesheet" href="/css/publish.css">
 <%- include header.ejs %>
-<div class="container">
+<% if(user){ %>
+<div class="container summary">
     <%- include alert.ejs %>
-    <div class="login-content">
-        <h3 class="reg-title text-center">写美文
-            <small>草稿自动保存</small>
-        </h3>
+    <div class="publish-content">
+        <h3 class="publish-title text-center">写文章</h3>
         <form class="form-horizontal" method="post">
             <div class="form-group">
-                <label for="title" class="col-sm-2 control-label">请输入标题</label>
+                <label for="content-title" class="col-sm-2 control-label">请输入标题</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="title" name="title" autocomplete="off">
+                    <input id="content-title" name="title" type="text" class="form-control" autocomplete="off">
                 </div>
             </div>
             <div class="form-group">
-                <label for="content" class="col-sm-2 control-label">请输入正文</label>
+                <label for="content-text" class="col-sm-2 control-label">请输入正文</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="content" name="content">
+                    <input id="content-text" name="content" type="text" class="form-control" autocomplete="off">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="content-cover" class="col-sm-2 control-label">封面图（暂定）</label>
+                <div class="col-sm-10">
+                    <input id="content-cover" name="cover" type="text" class="form-control" value="/upload/head/head_1507802697_681269.jpg">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-primary" id="btn-publish">发布</button>
+                    <button type="submit" class="btn btn-primary">发布</button>
                 </div>
             </div>
         </form>
@@ -29,3 +35,4 @@
     <%- include popTip.ejs %>
     <%- include footer.ejs %>
 </div>
+<% } %>
