@@ -1,18 +1,99 @@
-<!--按行按列显示传入的posts的所有内容-->
-<div id="bottompart">
-    <% posts.forEach(function(post, index){//遍历posts内容，每行显示三个
-    if(index % 3 == 0){ %>
-    <div class="row">
-        <% } %>
-        <div class="ctn">
-            <h3><a href='/u/<%= post.user %>' class="username"><%= post.user %></a>说：</h3>
-            <p><%= post.post %><br/><%= post.time %></p>
+<link rel="stylesheet" href="/css/posts.css">
+<!-- 主体内容 -->
+<div class="">
+    <div class="clearfix sec-nav">
+        <div class="pull-left" style="margin: 5px 0 0 5px;">
+            <h5>热门文章</h5>
         </div>
-        <% if(index % 3 == 2){ %>
+        <div class="pull-right">
+            <ul class="nav nav-pills" style="display: inline-block">
+                <li role="presentation"><a href="#">运动健身</a></li>
+                <li role="presentation"><a href="#">饮食</a></li>
+                <li role="presentation"><a href="#">网络游戏</a></li>
+                <li role="presentation"><a href="#">购物</a></li>
+                <li role="presentation"><a href="#">旅行计划</a></li>
+                <li role="presentation"><a href="#">更多</a></li>
+            </ul>
+        </div>
     </div>
-    <% } %>
+    <% posts.forEach(function(post, index){ %>
+    <div class="panel panel-default content-item">
+        <div class="panel-body">
+            <div class="clearfix">
+                <p class="list-group-item-text pull-left pub-show-tips">
+                    <span>来自话题:</span>
+                    <% post.topics.forEach(function(topic){ %>
+                    <span><%= topic %></span>
+                    <% }); %>
+                </p>
+                <p class="list-group-item-text pull-right pub-show-tips"><%= timeAgo(post.created) %></p>
+            </div>
+            <div class="pub-show-user clearfix">
+                <div class="pub-show-user-head pull-left">
+                    <% if(post.author.avatar){ %>
+                    <a href="/user/<%= post.author.account %>">
+                        <img src="<%= post.author.avatar %>" alt="头像" onerror="avatarError(this)">
+                    </a>
+                    <% }else{ %>
+                    <a href="/user/<%= post.author.account %>">
+                        <img src="/images/default/default_avatar.jpg" alt="头像" onerror="avatarError(this)">
+                    </a>
+                    <% } %>
+                </div>
+                <div class="pub-show-user-info pull-left">
+                    <a href="/user/<%= post.author.account %>"><%= post.author.nickname %></a>
+                    <% if(post.author.headline){ %>
+                    <span class="user-sign">，<%= post.author.headline %></span>
+                    <% } %>
+                </div>
+            </div>
+            <div class="pub-show-title">
+                <a class="list-group-item-heading"><%= post.title %></a>
+            </div>
+            <div class="row pub-show-content clearfix">
+                <% if(post.cover){ %>
+                <div class="col-md-3 col-sm-3 col-xs-3">
+                    <div class="pub-show-content-img pull-left">
+                        <img src="<%= post.cover %>" alt="封面" onerror="imageError(this)">
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-9">
+                    <div class="pub-show-content-content pull-left">
+                        <div class="pub-show-content-txt">
+                            <%- post.detail %>
+                        </div>
+                    </div>
+                </div>
+                <% } else { %>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="pub-show-content-content">
+                        <div class="pub-show-content-txt">
+                            <%- post.detail %>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+            <div class="pub-show-foot">
+                <ul class="list-inline clearfix">
+                    <li>
+                        <span class="glyphicon glyphicon-heart"
+                              aria-hidden="true"></span>&nbsp;<span><%= post.praiseCount || 0 %></span>个人点赞
+                    </li>
+                    <li>
+                        <span class="glyphicon glyphicon-comment"
+                              aria-hidden="true"></span>&nbsp;<span><%= post.commentCount || 0 %></span>条评论
+                    </li>
+                    <li>
+                        <span class="glyphicon glyphicon-pencil"
+                              aria-hidden="true"></span>&nbsp;<span><%= post.answerCount || 0 %></span>条回答
+                    </li>
+                    <li>
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <% }); %>
-    <% if(posts.length % 3 != 0){ %>
-</div>
-<% } %>
 </div>

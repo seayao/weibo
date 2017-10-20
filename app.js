@@ -2,7 +2,8 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
-var logger = require('morgan');
+var log4js = require('log4js');
+//var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var multer = require('multer');
@@ -21,12 +22,28 @@ var flash = require('connect-flash');
 //项目实例化
 var app = express();
 
+//配置log日志
+log4js.configure({
+    appenders: [
+        { type: 'console' },{
+            type: 'file',
+            filename: 'logs/access.log',
+            maxLogSize: 1024,
+            backups:4,
+            category: 'normal'
+        }
+    ],
+    replaceConsole: true
+});
+var logger = log4js.getLogger('normal');
+logger.setLevel('INFO');
+
 // view engine setup（设置模板位置和模板引擎格式）
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 //给模板添加方法
 app.locals['timeAgo'] = function (dateStr) {
-    //dateStr格式：2017-08-17 10:39:27
+    //dateStr格式：2017-08-17 10:39:27或2017/08/17 10:39:27
     //转换成时间戳
     var dateTimeStamp = Date.parse(dateStr.replace(/-/gi, "/"));
     var minute = 1000 * 60;
@@ -64,29 +81,31 @@ app.locals['timeAgo'] = function (dateStr) {
 };
 
 app.locals['cutStr'] = function (str, len, endType) {
-    endType = endType || "...";
-    len = len || 150;
-    var str_length = 0;
-    var str_len = str.length;
-    var str_cut = new String();
-    var char;
-    for (var i = 0; i < str_len; i++) {
-        char = str.charAt(i);
-        str_length++;
-        if (decodeURIComponent(char).length > 4) {
-            //中文字符的长度经编码之后大于4
+    if (str) {
+        endType = endType || "...";
+        len = len || 150;
+        var str_length = 0;
+        var str_len = str.length;
+        var str_cut = new String();
+        var char;
+        for (var i = 0; i < str_len; i++) {
+            char = str.charAt(i);
             str_length++;
+            if (decodeURIComponent(char).length > 4) {
+                //中文字符的长度经编码之后大于4
+                str_length++;
+            }
+            str_cut = str_cut.concat(char);
+            if (str_length >= len) {
+                str_cut = str_cut.concat(endType);
+                str_cut += ' <a href="">阅读全文</a>';
+                return str_cut;
+            }
         }
-        str_cut = str_cut.concat(char);
-        if (str_length >= len) {
-            str_cut = str_cut.concat(endType);
-            str_cut += ' <a href="">阅读全文</a>';
-            return str_cut;
+        //如果给定字符串小于指定长度，则返回源字符串；
+        if (str_length < len) {
+            return str;
         }
-    }
-    //如果给定字符串小于指定长度，则返回源字符串；
-    if (str_length < len) {
-        return str;
     }
 };
 
@@ -98,7 +117,7 @@ app.use(flash());
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 //定义日志和输出级别
-app.use(logger('dev'));
+//app.use(logger('dev'));
 
 //定义数据解析器
 app.use(bodyParser.json());
@@ -112,9 +131,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //定义文件上传模块
 app.use(multer({
-    dest: './public/upload/head',
+    dest: './public/upload/avatar',
     rename: function (fieldname, filename) {
-        filename = "head_" + Math.round(new Date().getTime() / 1000) + "_" + Math.random().toString(16).substring(2).substr(0, 6);
+        filename = "avatar_" + Math.round(new Date().getTime() / 1000) + "_" + Math.random().toString(16).substring(2).substr(0, 6);
         return filename;
     }
 }));

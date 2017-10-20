@@ -1,57 +1,40 @@
 <link rel="stylesheet" href="/css/aside.css">
 <div class="aside-content">
+    <% if(hotUsers){ %>
     <div class="original-author">
-        <div class="original-author-title">
-            <span>优秀原创作者</span>
+        <div class="original-author-title clearfix">
+            <div class="pull-left">
+                <span>优秀原创作者</span>
+            </div>
+            <div class="pull-right">
+                <a href="#"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>换一批</a>
+            </div>
         </div>
-        <ul class="list-group original-author-list" style="margin-bottom: 15px">
-            <li class="list-group-item clearfix">
-                <div class="pull-left original-author-head">
-                    <img class="img-circle" src="/images/head_small1.jpg" alt="">
-                </div>
-                <div class="pull-left original-author-info">
-                    <h5>姚海洋</h5>
-                    <p>简介简介</p>
-                </div>
+        <ul class="list-group original-author-list" style="margin-bottom:0">
+            <% hotUsers.forEach(function(hotUser, index){ %>
+            <li class="list-group-item" style="padding: 6px 0">
+                <a class="clearfix" href="/user/<%= hotUser.account %>" style="display:block;padding: 0 15px">
+                    <div class="pull-left original-author-head">
+                        <% if(hotUser.avatar){ %>
+                        <img class="img-circle" src="<%= hotUser.avatar %>" alt="头像" onerror="avatarError(this)">
+                        <% }else { %>
+                        <img class="img-circle" src="/images/default/default_avatar.jpg" alt="头像"
+                             onerror="avatarError(this)">
+                        <% } %>
+                    </div>
+                    <div class="pull-left original-author-info">
+                        <span class="original-author-nick"><%= hotUser.nickname %></span>
+                        <p class="original-author-headline"><%= hotUser.headline %></p>
+                    </div>
+                </a>
             </li>
-            <li class="list-group-item clearfix">
-                <div class="pull-left original-author-head">
-                    <img class="img-circle" src="/images/head_small1.jpg" alt="">
-                </div>
-                <div class="pull-left original-author-info">
-                    <h5>姚海洋</h5>
-                    <p>简介简介</p>
-                </div>
-            </li>
-            <li class="list-group-item clearfix">
-                <div class="pull-left original-author-head">
-                    <img class="img-circle" src="/images/head_small1.jpg" alt="">
-                </div>
-                <div class="pull-left original-author-info">
-                    <h5>姚海洋</h5>
-                    <p>简介简介</p>
-                </div>
-            </li>
-            <li class="list-group-item clearfix">
-                <div class="pull-left original-author-head">
-                    <img class="img-circle" src="/images/head_small1.jpg" alt="">
-                </div>
-                <div class="pull-left original-author-info">
-                    <h5>姚海洋</h5>
-                    <p>简介简介</p>
-                </div>
-            </li>
-            <li class="list-group-item clearfix">
-                <div class="pull-left original-author-head">
-                    <img class="img-circle" src="/images/head_small1.jpg" alt="">
-                </div>
-                <div class="pull-left original-author-info">
-                    <h5>姚海洋</h5>
-                    <p>简介简介</p>
-                </div>
-            </li>
+            <% }); %>
         </ul>
+        <div class="text-center">
+            <a href="#" class="btn btn-default" role="button" style="width: 100%">查看更多</a>
+        </div>
     </div>
+    <% } %>
     <%- include adve.ejs %>
     <%- include links.ejs %>
 </div>

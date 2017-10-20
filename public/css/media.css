@@ -1,0 +1,222 @@
+/* 响应式布局 */
+@media (max-width: 450px) {
+    .nav-style-list {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-style-list .nav-style-item {
+        float: left;
+        width: 25%;
+        max-width: 25%;
+    }
+
+    .resource-drop-menu {
+        min-width: 0;
+        background-color: #000 !important;
+    }
+
+    .resource-drop-menu a {
+        color: #fff !important;
+        padding-left: 15px !important;
+    }
+
+    .user-handle-list, .user-login-reg-list {
+        float: left !important;
+        width: 100%;
+        text-align: center;
+    }
+
+    .user-handle-list .user-handle-item {
+        float: left;
+        width: 33%;
+        max-width: 33%;
+    }
+
+    .user-login-reg-list .login-reg {
+        float: left;
+        width: 50%;
+        max-width: 50%;
+    }
+
+    .user-handle-item-menu {
+        min-width: 0;
+        background-color: #000 !important;
+    }
+
+    .user-handle-item-menu a {
+        color: #fff !important;
+        padding-left: 10px !important;
+    }
+
+    .topic-swiper {
+        height: 300px;
+        margin-bottom: 20px;
+    }
+
+    .topic-swiper .topic-swiper-item {
+        height: 300px;
+    }
+
+    .topic-swiper img {
+        min-height: 300px;
+    }
+
+    .carousel-caption p {
+        font-size: 16px;
+        line-height: 1.4;
+    }
+
+    .note-user-info {
+        max-width: 50%;
+    }
+
+    .view-comment {
+        max-width: 50%;
+    }
+
+    .note-user-info .note-user-name {
+        display: inline-block;
+        max-width: 40%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}
+
+@media (max-width: 768px)and (min-width: 450px) {
+    .nav-style-list {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-style-list .nav-style-item {
+        float: left;
+        width: 25%;
+        max-width: 25%;
+    }
+
+    .resource-drop-menu {
+        min-width: 0;
+        background-color: #000 !important;
+    }
+
+    .resource-drop-menu a {
+        color: #fff !important;
+        padding-left: 15px !important;
+    }
+
+    .user-handle-list, .user-login-reg-list {
+        float: left !important;
+        width: 100%;
+        text-align: center;
+    }
+
+    .user-handle-list .user-handle-item {
+        float: left;
+        width: 33%;
+        max-width: 33%;
+    }
+
+    .user-login-reg-list .login-reg {
+        float: left;
+        width: 50%;
+        max-width: 50%;
+    }
+
+    .user-handle-item-menu {
+        min-width: 0;
+        background-color: #000 !important;
+    }
+
+    .user-handle-item-menu a {
+        color: #fff !important;
+        padding-left: 10px !important;
+    }
+
+    .topic-swiper {
+        height: 300px;
+        margin-bottom: 20px;
+    }
+
+    .topic-swiper .topic-swiper-item {
+        height: 300px;
+    }
+
+    .topic-swiper img {
+        min-height: 300px;
+    }
+
+    .carousel-caption p {
+        font-size: 16px;
+        line-height: 1.4;
+    }
+
+    .feature-heading {
+        font-size: 34px;
+    }
+
+    .feature-heading .text-muted {
+        font-size: 22px;
+    }
+
+    .note-user-info {
+        max-width: 50%;
+    }
+
+    .view-comment {
+        max-width: 40%;
+    }
+
+    .note-user-info .note-user-name {
+        display: inline-block;
+        max-width: 60%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}
+
+@media (min-width: 992px) {
+    .feature-heading {
+        margin-top: 120px;
+    }
+
+    .back-top {
+        bottom: 100px;
+    }
+
+    .note-user-info {
+        max-width: 80%;
+    }
+
+    .view-comment {
+        max-width: 20%;
+    }
+
+    .note-user-info .note-user-name {
+        display: inline-block;
+        max-width: 80%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}
+
+@media (min-width: 1200px) {
+    .note-user-info {
+        max-width: 60%;
+    }
+
+    .view-comment {
+        max-width: 40%;
+    }
+
+    .note-user-info .note-user-name {
+        display: inline-block;
+        max-width: 60%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}

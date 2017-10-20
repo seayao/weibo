@@ -1,0 +1,98 @@
+body {
+    padding-top: 60px;
+    padding-bottom: 15px;
+    color: #5a5a5a;
+    /*解决模态框左右抖动问题*/
+    overflow: auto !important;
+    background-color: #f7fafc;
+}
+
+/*按钮点击边框去除*/
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+    outline: none;
+}
+
+/*解决模态框左右抖动问题*/
+.modal {
+    overflow: auto !important;
+}
+
+.sea-menu-nav {
+    background-color: #fff;
+    padding: 5px 0;
+}
+
+.sea-logo {
+    color: #007fff !important;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.sea-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sea-form-item {
+    margin-bottom: 15px;
+}
+
+.sea-form-control {
+    font-weight: normal;
+}
+
+.sea-summary {
+    padding-right: 0;
+    padding-left: 0;
+    margin-top: 15px;
+    overflow-x: hidden;
+}
+
+/*二级导航*/
+.sec-nav {
+    background-color: #fff;
+    padding: 5px 10px;
+    border-bottom: 1px solid rgba(178, 186, 194, .15);
+}
+
+/*返回顶部图标*/
+.back-top {
+    display: none;
+    z-index: 999999;
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #fff;
+    color: #8590a6;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 40px;
+    text-align: center;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    text-decoration: none;
+    overflow: hidden;
+    border: none;
+}
+
+.back-top:hover {
+    background-color: #d5dbe7;
+    color: #8590a6;
+}
+
+.back-top:active, .back-top:focus {
+    color: #8590a6;
+}
+
+

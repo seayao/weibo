@@ -1,0 +1,22 @@
+.error-content {
+    color: #000;
+}
+
+.error-title {
+
+}
+
+.error-title-web, .error-title-diver {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.error-title-status {
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.error-message {
+    font-size: 20px;
+    font-weight: 700;
+}

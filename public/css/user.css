@@ -9,16 +9,23 @@
 .UserCover-image {
     width: 100%;
     height: auto;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 }
 
 .UserCover-image img {
     width: 100%;
-    max-height: 265px;
+    height: 240px;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
+}
+
+.UserCover-noImage {
+    width: 100%;
+    height: 132px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    background-color: transparent;
 }
 
 .userBase-info {
@@ -49,12 +56,15 @@
     border-radius: 4px;
 }
 
-.userBase-info-top{
+.userBase-info-top {
+    width: 100%;
     margin: 10px 0;
+    overflow: hidden;
 }
 
 .user-nick {
-    display: inline-block;
+    width: auto;
+    max-width: 100%;
     margin-top: 10px;
     font-size: 26px;
     font-weight: 700;
@@ -63,9 +73,9 @@
 }
 
 .user-gender {
-    display: inline-block;
     width: 20px;
     height: 20px;
+    margin-top: 15px;
     text-align: center;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -80,6 +90,14 @@
 .user-gender-female {
     background-color: #fff;
     color: #dd5044;
+}
+
+.userBase-info-sign p {
+    font-size: 16px;
+}
+
+.handle-btn-wrap {
+    margin-bottom: 15px;
 }
 
 .user-main-tab, .tab-content {
@@ -106,6 +124,7 @@
 
 .pub-show-list .pub-show-item .pub-show-tips {
     margin-bottom: 10px;
+    color: #8590a6;
 }
 
 .pub-show-content {
@@ -153,6 +172,21 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
 }
 
+.my-follow, .my-fans {
+    text-align: center;
+    padding: 12px 12px 6px;
+}
+
+.my-follow a, .my-fans a {
+    font-size: 14px;
+    color: #8590a6;
+    text-decoration: none;
+}
+
+.my-follow a:hover, .my-fans a:hover {
+    color: #175199;
+}
+
 .my-follow-line {
     display: inline-block;
     position: absolute;
@@ -162,14 +196,11 @@
     background-color: #ddd;
 }
 
-.my-follow, .my-fans {
-    text-align: center;
-    padding: 12px 12px 6px;
-    font-size: 16px;
-}
-
 .pub-f-num {
     margin-top: 6px;
+    color: #262626;
+    font-size: 18px;
+    font-weight: 500;
 }
 
 .follow-list {
@@ -187,4 +218,8 @@
 
 .follow-list li:hover {
     background-color: #eaeaea;
+}
+
+.muteOrReport-wrap a, .visit-wrap {
+    color: #8590a6;
 }

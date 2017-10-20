@@ -1,4 +1,56 @@
-.publish-content{
-    background-color: #fff;
-    padding: 10px;
+.publish-content {
+    background-color: transparent;
+}
+
+.show-cover-wrap {
+    width: 100%;
+    height: 190px;
+    margin: 0 auto;
+    position: relative;
+    background-color: #ccc;
+}
+
+.show-cover-handle{
+    display: none;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.article-cover-wrap {
+    width: auto;
+    height: auto;
+    text-align: center;
+    position: absolute;
+    top: 120px;
+    left: 45%;
+}
+
+.show-cover-wrap .showCover-preview{
+    display: none;
+    width: 100%;
+    height: inherit;
+}
+
+.UserAvatarEditor-cameraIcon {
+    display: block;
+    vertical-align: text-bottom;
+    padding-bottom: 14px;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.UserAvatarEditor-maskInnerText {
+    display: block;
+    white-space: nowrap;
+    margin-bottom: 0;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.article-detail{
+    display: none;
+    width: 100%;
+    max-width: 100%;
+    min-height: 50px;
 }

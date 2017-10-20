@@ -1,21 +1,21 @@
 <%- include meta.ejs %>
 <%- include header.ejs %>
-<canvas id="Mycanvas" style=" background-color: #f7fafc;position: absolute;z-index: -1;overflow: hidden;"></canvas>
-<div class="container summary">
+<%- include bg.ejs %>
+<div class="container sea-summary">
     <%- include alert.ejs %>
     <div class="login-content">
         <h3 class="reg-title text-center">用户登录</h3>
         <form class="form-horizontal" method="post">
             <div class="form-group">
-                <label for="useraccount" class="col-sm-2 control-label">用户账号</label>
+                <label for="account" class="col-sm-2 control-label">用户账号</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="useraccount" name="useraccount" autocomplete="off">
+                    <input id="account" type="text" class="form-control" name="account" autocomplete="off">
                 </div>
             </div>
             <div class="form-group">
-                <label for="upwd" class="col-sm-2 control-label">登录密码</label>
+                <label for="user_pwd" class="col-sm-2 control-label">登录密码</label>
                 <div class="col-sm-10">
-                    <input type="password" class="form-control" id="upwd" name="userpwd">
+                    <input id="user_pwd" type="password" class="form-control" name="user_pwd">
                 </div>
             </div>
 
@@ -28,4 +28,3 @@
     </div>
     <%- include footer.ejs %>
 </div>
-<script src="/js/plugin/bg.js"></script>

@@ -1,38 +1,121 @@
 <%- include meta.ejs %>
-<link rel="stylesheet" href="/css/publish.css">
 <%- include header.ejs %>
-<% if(user){ %>
-<div class="container summary">
+<%- include bg.ejs %>
+<% if(user_sn){ %>
+<link rel="stylesheet" href="/plugins/summernote/summernote.css">
+<link rel="stylesheet" href="/plugins/summernote/summernote-bs4.css">
+<link rel="stylesheet" href="/css/publish.css">
+<div class="container sea-summary">
     <%- include alert.ejs %>
     <div class="publish-content">
-        <h3 class="publish-title text-center">写文章</h3>
-        <form class="form-horizontal" method="post">
-            <div class="form-group">
-                <label for="content-title" class="col-sm-2 control-label">请输入标题</label>
-                <div class="col-sm-10">
-                    <input id="content-title" name="title" type="text" class="form-control" autocomplete="off">
+        <div class="row">
+            <div class="col-sm-8 col-md-8 col-sm-offset-2 col-md-offset-2">
+                <h3 class="publish-title text-center">写文章</h3>
+                <div class="show-cover-wrap">
+                    <div class="show-cover-handle btn-group" role="group">
+                        <button id="changeCoverBtn" class="btn btn-sm btn-primary" type="button">更换</button>
+                        <button id="delCoverBtn" class="btn btn-sm btn-default" type="button">删除</button>
+                    </div>
+                    <img class="showCover-preview" src="" alt="封面">
                 </div>
+                <form id="articleForm" class="form-horizontal" method="post" enctype="multipart/form-data">
+                    <div class="article-cover-wrap">
+                        <label for="article-cover">
+                            <span class="UserAvatarEditor-cameraIcon glyphicon glyphicon-camera"
+                                  aria-hidden="true"></span>
+                            <span class="UserAvatarEditor-maskInnerText">添加封面图片</span>
+                            <input id="article-cover" name="cover" type="file" accept="image/png,image/jpeg"
+                                   style="display: none">
+                        </label>
+                    </div>
+                    <div class="sea-form-item" style="margin-top: 15px">
+                        <label for="article-title">请输入标题</label>
+                        <div class="">
+                            <input id="article-title" name="title" type="text" class="form-control" autocomplete="off"
+                                   autofocus="autofocus">
+                        </div>
+                    </div>
+                    <div class="sea-form-item">
+                        <label>请选择话题（至少选一项）</label>
+                        <div class="">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="topics" value="运动健身">运动健身
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="topics" value="饮食">饮食
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="topics" value="网络游戏">网络游戏
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="topics" value="购物">购物
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="topics" value="旅行计划">旅行计划
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="topics" value="其他">其他……
+                            </label>
+                        </div>
+                    </div>
+                    <div class="sea-form-item">
+                        <label for="article-detail">请输入正文</label>
+                        <div class="">
+                            <div id="editContent"></div>
+                            <textarea id="article-detail" name="detail" class="article-detail form-control"
+                                      rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="sea-form-item">
+                        <label>文章权限</label>
+                        <div class="">
+                            <label class="radio-inline">
+                                <input type="radio" name="isLocked" value="0" checked>公开（所有人可见）
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="isLocked" value="1">私密（仅自己可见）
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="isLocked" value="2">指定人可见
+                            </label>
+                        </div>
+                    </div>
+                    <div class="sea-form-item">
+                        <label>评论权限</label>
+                        <div class="">
+                            <label class="radio-inline">
+                                <input type="radio" name="canComment" value="1" checked>开放评论（所有评论公开显示）
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="canComment" value="2">预审评论（评论由您筛选后公开显示）
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="canComment" value="0">关闭评论（所有人都不能提交评论）
+                            </label>
+                        </div>
+                    </div>
+                    <div class="sea-form-item">
+                        <label>发布</label>
+                        <div class="">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="isAnonymous" value="true">匿名发布
+                            </label>
+                        </div>
+                    </div>
+                    <div class="sea-form-item">
+                        <div class="">
+                            <button type="button" class="btn btn-info">预览</button>
+                            <button id="pubArticle" type="button" class="btn btn-primary">发布</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label for="content-text" class="col-sm-2 control-label">请输入正文</label>
-                <div class="col-sm-10">
-                    <input id="content-text" name="content" type="text" class="form-control" autocomplete="off">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="content-cover" class="col-sm-2 control-label">封面图（暂定）</label>
-                <div class="col-sm-10">
-                    <input id="content-cover" name="cover" type="text" class="form-control" value="/upload/head/head_1507802697_681269.jpg">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-primary">发布</button>
-                </div>
-            </div>
-        </form>
+        </div>
     </div>
     <%- include popTip.ejs %>
     <%- include footer.ejs %>
 </div>
+<script src="/plugins/summernote/summernote.min.js"></script>
+<script src="/plugins/summernote/lang/summernote-zh-CN.js"></script>
+<script src="/js/publish.js"></script>
 <% } %>

@@ -1,22 +1,61 @@
 <%- include meta.ejs %>
-<link rel="stylesheet" href="/css/edit.css">
+<!--加载动画-->
+<%- include loading.ejs %>
 <%- include header.ejs %>
-<% if(user){ %>
-<div class="container summary">
+<% if(user_db){ %>
+<link rel="stylesheet" href="/css/edit.css">
+<div class="container sea-summary">
     <div class="user-edit-card">
         <%- include alert.ejs %>
         <div class="row">
             <div class="col-sm-12 col-md-12">
                 <!--个人信息编辑头部-->
                 <div class="pro-header">
-                    <div class="user-cover-edit">
-                        <button class="btn btn-default user-cover-edit-btn" type="button">
-                            <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>&nbsp;编辑封面图片
-                        </button>
-                        <div class="user-cover">
-                            <img class="UserCover-image" src="/images/banner1.jpg" alt="用户封面">
+                    <div class="user-cover">
+                        <form id="coverForm" method="post" action="/user/<%= user_db.account %>/edit"
+                              enctype="multipart/form-data">
+                            <div class="form-group" style="margin-bottom: 0">
+                                <label for="uploadCover" class="UserAvatarEditor-maskInnerText">
+                                    <a class="btn btn-default user-cover-edit-btn" role="button">
+                                        <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>&nbsp;编辑封面图片
+                                    </a>
+                                    <input id="uploadCover" name="cover" type="file" accept="image/png,image/jpeg"
+                                           style="display: none;">
+                                </label>
+                            </div>
+                        </form>
+                        <% if(user_db.cover){ %>
+                        <div class="UserCover-image">
+                            <img class="showCover" src="<%= user_db.cover %>" alt="封面" onerror="coverError(this)">
+                            <img class="showCover-preview" src="" alt="封面">
                         </div>
-                        <input type="file" accept="image/png,image/jpeg" style="display: none;">
+                        <% }else { %>
+                        <div class="UserCover-image" style="display: none">
+                            <img class="showCover-preview" src="" alt="封面">
+                        </div>
+                        <div class="UserCover-noImage"></div>
+                        <% } %>
+                        <!--选择封面后操作处理-->
+                        <div class="cover-edit-action">
+                            <div class="container">
+                                <div class="row" style="padding: 15px 20px;vertical-align: middle">
+                                    <div class="col-sm-4 col-md-4 text-center">待定区域</div>
+                                    <div class="col-sm-4 col-md-4 text-center">待定区域</div>
+                                    <div class="col-sm-4 col-md-4 text-center">
+                                        <div class="userCoverBtn userCoverBtnOk">
+                                            <button id="ucBtnConfirm" class="btn btn-primary" type="button"><span
+                                                        class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp;保存
+                                            </button>
+                                        </div>
+                                        <div class="userCoverBtn userCoverBtnCancel">
+                                            <button id="ucBtnCancel" class="btn btn-default" type="button"><span
+                                                        class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;取消
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -28,33 +67,46 @@
                     <!--左侧，用户头像部分-->
                     <div class="UserAvatarEditor ProfileHeader-avatar">
                         <div class="UserAvatar">
-                            <% if(user.head){ %>
-                            <img id="showHead" class="Avatar Avatar--large UserAvatar-inner" src="<%= user.head %>"
+                            <img class="showHead-preview Avatar Avatar--large UserAvatar-inner" src="" alt=""
+                                 style="display: none">
+                            <% if(user_db.avatar){ %>
+                            <img class="showHead Avatar Avatar--large UserAvatar-inner" src="<%= user_db.avatar %>"
                                  alt="头像" onerror="avatarError(this)">
                             <% }else{ %>
-                            <img id="showHead" class="Avatar Avatar--large UserAvatar-inner"
+                            <img class="showHead Avatar Avatar--large UserAvatar-inner"
                                  src="/images/default/default_avatar.jpg" alt="头像" onerror="avatarError(this)">
                             <% } %>
                         </div>
                         <div class="Mask UserAvatarEditor-mask">
                             <div class="Mask-mask Mask-mask--black UserAvatarEditor-maskInner"></div>
                             <div class="Mask-content">
-                                <form id="headForm" method="post" action="/user/<%= user.useraccount %>/edit"
+                                <form id="avatarForm" method="post" action="/user/<%= user_db.account %>/edit"
                                       enctype="multipart/form-data">
                                     <div class="form-group" style="margin-bottom: 0">
-                                        <label for="uploadHead" class="UserAvatarEditor-maskInnerText"
-                                               style="overflow: hidden;margin-bottom: 0">
+                                        <label for="uploadAvatar" class="UserAvatarEditor-maskInnerText">
                                             <span class="UserAvatarEditor-cameraIcon glyphicon glyphicon-camera"
                                                   aria-hidden="true"></span>
                                             <span class="UserAvatarEditor-maskInnerText">修改我的头像</span>
-                                            <input id="uploadHead" name="head" type="file" accept="image/png,image/jpeg"
+                                            <input id="uploadAvatar" name="avatar" type="file"
+                                                   accept="image/png,image/jpeg"
                                                    style="display: none">
                                         </label>
                                     </div>
                                 </form>
                             </div>
                         </div>
-                        <button id="headBtn" type="button" class="btn btn-sm btn-danger">上传头像</button>
+                        <div class="headBtn-wrap">
+                            <div class="headBtn-wrap-content">
+                                <button id="headBtnConfirm" type="button" class="btn btn-sm btn-primary"><span
+                                            class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp;保存
+                                </button>
+                            </div>
+                            <div class="headBtn-wrap-content">
+                                <button id="headBtnCancel" type="button" class="btn btn-sm btn-default"><span
+                                            class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp;取消
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!--右侧，用户资料部分-->
@@ -62,75 +114,262 @@
                     <div class="ProfileHeader-content">
                         <div class="ProfileHeader-contentHead clearfix">
                             <h3 class="ProfileHeader-title pull-left">
-                                <span class="ProfileHeader-name"><%= user.usernick %></span>
+                                <span class="ProfileHeader-name"><%= user_db.nickname %></span>
                             </h3>
                             <div class="ProfileEdit-expandActions pull-right">
-                                <a href="/user/<%= user.useraccount %>">返回我的主页</a>
+                                <a href="/user/<%= user_db.account %>">返回我的主页</a>
                             </div>
                         </div>
                         <div class="ProfileEdit-fields">
-                            <form class="Field"><h3 class="Field-label">性别</h3>
-                                <div class="Field-content">
-                                    <div><span class="Field-text">男</span>
-                                        <button class="btn btn-sm btn-default" type="button">
+                            <form class="Field row" method="post" action="/user/<%= user_db.account %>/edit">
+                                <div class="col-sm-2 col-md-2">
+                                    <p class="Field-label">性别</p>
+                                </div>
+                                <div class="col-sm-8 col-md-8">
+                                    <% if(user_db.gender == 0){ %>
+                                    <span class="Field-text">女</span>
+                                    <% }else { %>
+                                    <span class="Field-text">男</span>
+                                    <% } %>
+                                    <div class="Field-Content-Hidden">
+                                        <% if(user_db.gender == 0){ %>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="gender" value="1">男
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="gender" value="0" checked>女
+                                        </label>
+                                        <% }else{ %>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="gender" value="1" checked>男
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="gender" value="0">女
+                                        </label>
+                                        <% } %>
+                                        <div class="Field-Btn-Handle">
+                                            <button class="btn btn-primary" type="submit">保存</button>
+                                            <button class="Field-Cancel btn btn-default" type="button">取消</button>
+                                        </div>
+                                    </div>
+                                    <div class="Field-Btn-Content">
+                                        <button class="Field-Btn btn btn-sm btn-default" type="button">
                                             <span class="btn-icon glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;修改
                                         </button>
                                     </div>
                                 </div>
                             </form>
-                            <form class="Field"><h3 class="Field-label">一句话介绍</h3>
-                                <div class="Field-content">
-                                    <div><span class="Field-text"><span class="RichText">JUST Do IT</span></span>
-                                        <button class="btn btn-sm btn-default" type="button">
+                            <form class="Field row" method="post" action="/user/<%= user_db.account %>/edit">
+                                <div class="col-sm-2 col-md-2">
+                                    <p class="Field-label">一句话介绍</p>
+                                </div>
+                                <div class="col-sm-8 col-md-8">
+                                    <span class="Field-text"><%= user_db.headline %></span>
+                                    <div class="Field-Content-Hidden">
+                                        <label style="display: block">
+                                            <input name="headline" type="text" class="form-control sea-form-control"
+                                                   autocomplete="off">
+                                        </label>
+                                        <div class="Field-Btn-Handle">
+                                            <button class="btn btn-primary" type="submit">保存</button>
+                                            <button class="Field-Cancel btn btn-default" type="button">取消</button>
+                                        </div>
+                                    </div>
+                                    <div class="Field-Btn-Content">
+                                        <button class="Field-Btn btn btn-sm btn-default" type="button">
                                             <span class="btn-icon glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;修改
                                         </button>
                                     </div>
                                 </div>
                             </form>
-                            <form class="Field"><h3 class="Field-label">居住地</h3>
-                                <div class="Field-content">
-                                    <div class="AddButton">
-                                        <button class="btn btn-sm btn-default" type="button">
-                                            <span class="btn-icon glyphicon glyphicon-plus-sign"
-                                                  aria-hidden="true"></span>&nbsp;添加居住地
+                            <form class="Field row" method="post" action="/user/<%= user_db.account %>/edit">
+                                <div class="col-sm-2 col-md-2">
+                                    <p class="Field-label">出生日期</p>
+                                </div>
+                                <div class="col-sm-8 col-md-8">
+                                    <div class="Field-Content-Hidden">
+                                        <label>
+                                            <select name="birthday" class="form-control">
+                                                <option>1993</option>
+                                                <option>1994</option>
+                                                <option>1995</option>
+                                                <option>1996</option>
+                                                <option>1997</option>
+                                                <option>其他</option>
+                                            </select>
+                                        </label>
+                                        <div class="Field-Btn-Handle">
+                                            <button class="btn btn-primary" type="submit">保存</button>
+                                            <button class="Field-Cancel btn btn-default" type="button">取消</button>
+                                        </div>
+                                    </div>
+                                    <div class="Field-Btn-Content">
+                                        <button class="Field-Btn btn btn-sm btn-default" type="button">
+                                            <span class="btn-icon glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;选择
                                         </button>
                                     </div>
                                 </div>
                             </form>
-                            <form class="Field"><h3 class="Field-label">所在行业</h3>
-                                <div class="Field-content">
-                                    <div>
-                                        <button class="btn btn-sm btn-default" type="button">
-                                            <span class="btn-icon glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;请填写行业信息
+                            <form class="Field row" method="post" action="/user/<%= user_db.account %>/edit">
+                                <div class="col-sm-2 col-md-2">
+                                    <p class="Field-label">居住地</p>
+                                </div>
+                                <div class="col-sm-8 col-md-8">
+                                    <span class="Field-text"><%= user_db.address %></span>
+                                    <div class="Field-Content-Hidden">
+                                        <label for="address">
+                                            <input id="address" name="address" type="text"
+                                                   class="form-control sea-form-control"
+                                                   autocomplete="off">
+                                        </label>
+                                        <div class="Field-Btn-Handle">
+                                            <button class="btn btn-primary" type="submit">保存</button>
+                                            <button class="Field-Cancel btn btn-default" type="button">取消</button>
+                                        </div>
+                                    </div>
+                                    <div class="Field-Btn-Content">
+                                        <button class="Field-Btn btn btn-sm btn-default" type="button">
+                                    <span class="btn-icon glyphicon glyphicon-pencil"
+                                          aria-hidden="true"></span>&nbsp;修改
                                         </button>
                                     </div>
                                 </div>
                             </form>
-                            <form class="Field"><h3 class="Field-label">职业经历</h3>
-                                <div class="Field-content">
-                                    <div class="AddButton">
-                                        <button class="btn btn-sm btn-default" type="button">
-                                            <span class="btn-icon glyphicon glyphicon-plus-sign"
-                                                  aria-hidden="true"></span>&nbsp;添加职业经历
+                            <form class="Field row" method="post" action="/user/<%= user_db.account %>/edit">
+                                <div class="col-sm-2 col-md-2">
+                                    <p class="Field-label">所在行业</p>
+                                </div>
+                                <div class="col-sm-8 col-md-8">
+                                    <div class="Field-Content-Hidden">
+                                        <label>
+                                            <select name="profession" class="form-control">
+                                                <option selected>互联网</option>
+                                                <option>餐饮</option>
+                                                <option>服务业</option>
+                                                <option>教育</option>
+                                                <option>医疗</option>
+                                                <option>其他</option>
+                                            </select>
+                                        </label>
+                                        <div class="Field-Btn-Handle">
+                                            <button class="btn btn-primary" type="submit">保存</button>
+                                            <button class="Field-Cancel btn btn-default" type="button">取消</button>
+                                        </div>
+                                    </div>
+                                    <div class="Field-Btn-Content">
+                                        <button class="Field-Btn btn btn-sm btn-default" type="button">
+                                            <span class="btn-icon glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;选择
                                         </button>
                                     </div>
                                 </div>
                             </form>
-                            <form class="Field"><h3 class="Field-label">教育经历</h3>
-                                <div class="Field-content">
-                                    <div class="AddButton">
-                                        <button class="btn btn-sm btn-default" type="button">
-                                            <span class="btn-icon glyphicon glyphicon-plus-sign"
-                                                  aria-hidden="true"></span>&nbsp;添加教育经历
+                            <form class="Field row" method="post" action="/user/<%= user_db.account %>/edit">
+                                <div class="col-sm-2 col-md-2">
+                                    <p class="Field-label">职业经历(停用)</p>
+                                </div>
+                                <div class="col-sm-8 col-md-8">
+                                    <div class="Field-Content-Hidden">
+                                        <label>
+                                            <input type="text" class="form-control sea-form-control"
+                                                   placeholder="所在公司或组织">
+                                        </label>
+                                        <label>
+                                            <input type="text" class="form-control sea-form-control"
+                                                   placeholder="你的职位（选填）">
+                                        </label>
+                                        <div class="Field-Btn-Handle">
+                                            <button class="btn btn-primary" type="submit">保存</button>
+                                            <button class="Field-Cancel btn btn-default" type="button">取消</button>
+                                        </div>
+                                    </div>
+                                    <div class="Field-Btn-Content">
+                                        <button class="Field-Btn btn btn-sm btn-default" type="button">
+                                    <span class="btn-icon glyphicon glyphicon-plus-sign"
+                                          aria-hidden="true"></span>&nbsp;添加职业经历
                                         </button>
                                     </div>
-                                    <div class="Field-list"></div>
                                 </div>
                             </form>
-                            <form class="Field"><h3 class="Field-label">个人简介</h3>
-                                <div class="Field-content">
-                                    <div class="DescriptionField-content">
-                                        <button class="btn btn-sm btn-default" type="button">
+                            <form class="Field row" method="post" action="/user/<%= user_db.account %>/edit">
+                                <div class="col-sm-2 col-md-2">
+                                    <p class="Field-label">教育经历(停用)</p>
+                                </div>
+                                <div class="col-sm-8 col-md-8">
+                                    <div class="Field-Content-Hidden">
+                                        <label>
+                                            <input type="text" class="form-control sea-form-control"
+                                                   placeholder="学校或教育机构名称">
+                                        </label>
+                                        <label>
+                                            <input type="text" class="form-control sea-form-control"
+                                                   placeholder="专业方向（选填）">
+                                        </label>
+                                        <div class="Field-Btn-Handle">
+                                            <button class="btn btn-primary" type="submit">保存</button>
+                                            <button class="Field-Cancel btn btn-default" type="button">取消</button>
+                                        </div>
+                                    </div>
+                                    <div class="Field-Btn-Content">
+                                        <button class="Field-Btn btn btn-sm btn-default" type="button">
+                                    <span class="btn-icon glyphicon glyphicon-plus-sign"
+                                          aria-hidden="true"></span>&nbsp;添加教育经历
+                                        </button>
+                                    </div>
+                                    <!--<div class="Field-list"></div>-->
+                                </div>
+                            </form>
+                            <form class="Field row" method="post" action="/user/<%= user_db.account %>/edit">
+                                <div class="col-sm-2 col-md-2">
+                                    <p class="Field-label">联系方式(停用)</p>
+                                </div>
+                                <div class="col-sm-8 col-md-8">
+                                    <div class="Field-Content-Hidden">
+                                        <label>
+                                            <select class="form-control">
+                                                <option>微信</option>
+                                                <option>QQ</option>
+                                                <option>微博</option>
+                                                <option>邮箱</option>
+                                                <option>其他</option>
+                                            </select>
+                                        </label>
+                                        <label>
+                                            <input type="text" class="form-control sea-form-control"
+                                                   placeholder="联系方式">
+                                        </label>
+                                        <div class="Field-Btn-Handle">
+                                            <button class="btn btn-primary" type="submit">保存</button>
+                                            <button class="Field-Cancel btn btn-default" type="button">取消</button>
+                                        </div>
+                                    </div>
+                                    <div class="Field-Btn-Content">
+                                        <button class="Field-Btn btn btn-sm btn-default" type="button">
+                                    <span class="btn-icon glyphicon glyphicon-plus-sign"
+                                          aria-hidden="true"></span>&nbsp;添加联系方式
+                                        </button>
+                                    </div>
+                                    <!--<div class="Field-list"></div>-->
+                                </div>
+                            </form>
+                            <form class="Field row" method="post" action="/user/<%= user_db.account %>/edit">
+                                <div class="col-sm-2 col-md-2">
+                                    <p class="Field-label">个人简介</p>
+                                </div>
+                                <div class="col-sm-8 col-md-8">
+                                    <span class="Field-text"><%= user_db.describe %></span>
+                                    <div class="Field-Content-Hidden">
+                                        <label style="display: block">
+                                            <textarea name="describe"
+                                                      class="describe-content form-control sea-form-control"
+                                                      rows="4"></textarea>
+                                        </label>
+                                        <div class="Field-Btn-Handle">
+                                            <button class="btn btn-primary" type="submit">保存</button>
+                                            <button class="Field-Cancel btn btn-default" type="button">取消</button>
+                                        </div>
+                                    </div>
+                                    <div class="Field-Btn-Content">
+                                        <button class="Field-Btn btn btn-sm btn-default" type="button">
                                             <span class="btn-icon glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;填写
                                         </button>
                                     </div>
@@ -144,5 +383,6 @@
     </div>
     <%- include footer.ejs %>
 </div>
+<script src="/plugins/rgbaster/rgbaster.min.js"></script>
 <script src="/js/edit.js"></script>
 <% } %>

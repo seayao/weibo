@@ -1,13 +1,19 @@
 <%- include meta.ejs %>
-<link rel="stylesheet" href="/css/user.css">
+<!--加载动画-->
+<%- include loading.ejs %>
 <%- include header.ejs %>
-<% if(user){ %>
-<div class="container summary">
+<% if(user_db){ %>
+<link rel="stylesheet" href="/css/user.css">
+<div class="container sea-summary">
     <%- include alert.ejs %>
     <div class="user-info-head">
+        <% if(user_db.cover){ %>
         <div class="UserCover-image">
-            <img src="/images/banner1.jpg" alt="用户封面" onerror="imageError(this)">
+            <img src="<%= user_db.cover %>" alt="封面" onerror="coverError(this)">
         </div>
+        <% }else { %>
+        <div class="UserCover-noImage"></div>
+        <% } %>
         <div class="userBase-info">
             <div class="container">
                 <div class="row">
@@ -15,8 +21,8 @@
                         <div class="user-avatar">
                             <div class="user-avatar-cover">
                                 <!--头像-->
-                                <% if(user.head){ %>
-                                <img src="<%= user.head %>" alt="头像" onerror="avatarError(this)">
+                                <% if(user_db.avatar){ %>
+                                <img src="<%= user_db.avatar %>" alt="头像" onerror="avatarError(this)">
                                 <% }else{ %>
                                 <img src="/images/default/default_avatar.jpg" alt="头像" onerror="avatarError(this)">
                                 <% } %>
@@ -24,30 +30,45 @@
                         </div>
                     </div>
                     <div class="col-sm-9 col-md-9">
-                        <div class="userBase-info-top">
-                            <h3 class="user-nick"><%= user.usernick %></h3>
+                        <div class="userBase-info-top clearfix">
+                            <h3 class="user-nick sea-ellipsis pull-left"><%= user_db.nickname %></h3>
                             <!--性别-->
-                            <% if(user.gender == 1){ %>
-                            <div class="user-gender user-gender-male">
-                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                            </div>
-                            <% }else if(user.gender == 0){ %>
-                            <div class="user-gender user-gender-female">
+                            <% if(user_db.gender == 0){ %>
+                            <div class="user-gender user-gender-female pull-left">
                                 <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
                             </div>
-                            <% } else{ %>
-                            <div class="user-gender user-gender-male">
+                            <% }else{ %>
+                            <div class="user-gender user-gender-male pull-left">
                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                             </div>
                             <% } %>
                         </div>
+                        <% if(user_db.headline){ %>
                         <div class="userBase-info-sign">
-                            <p>个性签名……………………</p>
+                            <p class="sea-ellipsis"><%= user_db.headline %></p>
                         </div>
-                        <div class="pull-right">
-                            <a href="/user/<%= user.useraccount %>/edit" class="btn btn-primary"
+                        <% } %>
+                        <% if(!user_sn || user_sn.account !== user_db.account){ %>
+                        <div class="handle-btn-wrap pull-right">
+                            <% if(user_db.gender == 0){ %>
+                            <a href="#" class="btn btn-primary" role="button">
+                                <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;关注她
+                            </a>
+                            <% }else { %>
+                            <a href="#" class="btn btn-primary" role="button">
+                                <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;关注他
+                            </a>
+                            <% } %>
+                            <a href="#" class="btn btn-default" role="button">
+                                <span class="glyphicon glyphicon-send" aria-hidden="true"></span>&nbsp;发私信
+                            </a>
+                        </div>
+                        <% } else if(user_sn.account === user_db.account){ %>
+                        <div class="handle-btn-wrap pull-right">
+                            <a href="/user/<%= user_db.account %>/edit" class="btn btn-primary"
                                role="button">编辑个人资料</a>
                         </div>
+                        <% } %>
                     </div>
                 </div>
             </div>
@@ -79,7 +100,15 @@
                     <!--我的动态-->
                     <div class="tab-pane active" id="tab-mood">
                         <div class="pub-tab-top">
+                            <% if(!user_sn || user_sn.account !== user_db.account){ %>
+                            <% if(user_db.gender == 0){ %>
+                            <h5 class="pub-tab-title">她的动态</h5>
+                            <% }else { %>
+                            <h5 class="pub-tab-title">他的动态</h5>
+                            <% } %>
+                            <% }else if(user_sn.account === user_db.account){ %>
                             <h5 class="pub-tab-title">我的动态</h5>
+                            <% } %>
                         </div>
                         <ul class="list-group pub-show-list">
                             <li class="list-group-item pub-show-item">
@@ -117,7 +146,15 @@
                     <!--我的笔记-->
                     <div class="tab-pane" id="tab-note">
                         <div class="pub-tab-top">
+                            <% if(!user_sn || user_sn.account !== user_db.account){ %>
+                            <% if(user_db.gender == 0){ %>
+                            <h5 class="pub-tab-title">她的笔记</h5>
+                            <% }else { %>
+                            <h5 class="pub-tab-title">他的笔记</h5>
+                            <% } %>
+                            <% }else if(user_sn.account === user_db.account){ %>
                             <h5 class="pub-tab-title">我的笔记</h5>
+                            <% } %>
                         </div>
                         <ul class="list-group pub-show-list">
                             <li class="list-group-item pub-show-item">
@@ -156,7 +193,15 @@
                     <div class="tab-pane" id="tab-question">
                         <div class="tab-pane active" id="tab-mood">
                             <div class="pub-tab-top">
+                                <% if(!user_sn || user_sn.account !== user_db.account){ %>
+                                <% if(user_db.gender == 0){ %>
+                                <h5 class="pub-tab-title">她的提问</h5>
+                                <% }else { %>
+                                <h5 class="pub-tab-title">他的提问</h5>
+                                <% } %>
+                                <% }else if(user_sn.account === user_db.account){ %>
                                 <h5 class="pub-tab-title">我的提问</h5>
+                                <% } %>
                             </div>
                             <ul class="list-group pub-show-list">
                                 <li class="list-group-item pub-show-item">
@@ -196,7 +241,15 @@
                     <div class="tab-pane" id="tab-answer">
                         <div class="tab-pane active" id="tab-mood">
                             <div class="pub-tab-top">
+                                <% if(!user_sn || user_sn.account !== user_db.account){ %>
+                                <% if(user_db.gender == 0){ %>
+                                <h5 class="pub-tab-title">她的回答</h5>
+                                <% }else { %>
+                                <h5 class="pub-tab-title">他的回答</h5>
+                                <% } %>
+                                <% }else if(user_sn.account === user_db.account){ %>
                                 <h5 class="pub-tab-title">我的回答</h5>
+                                <% } %>
                             </div>
                             <ul class="list-group pub-show-list">
                                 <li class="list-group-item pub-show-item">
@@ -236,7 +289,15 @@
                     <div class="tab-pane" id="tab-collect">
                         <div class="tab-pane active" id="tab-mood">
                             <div class="pub-tab-top">
+                                <% if(!user_sn || user_sn.account !== user_db.account){ %>
+                                <% if(user_db.gender == 0){ %>
+                                <h5 class="pub-tab-title">她的收藏</h5>
+                                <% }else { %>
+                                <h5 class="pub-tab-title">他的收藏</h5>
+                                <% } %>
+                                <% }else if(user_sn.account === user_db.account){ %>
                                 <h5 class="pub-tab-title">我的收藏</h5>
+                                <% } %>
                             </div>
                             <ul class="list-group pub-show-list">
                                 <li class="list-group-item pub-show-item">
@@ -280,18 +341,18 @@
                 <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-6">
                         <div class="my-follow">
-                            <a href="">
-                                <div class="pub-f-txt">我的关注</div>
-                                <div class="pub-f-num">123</div>
+                            <a href="#">
+                                <div class="pub-f-txt">关注了</div>
+                                <div class="pub-f-num"><%= user_db.followerCount || 0 %></div>
                             </a>
                         </div>
                     </div>
                     <div class="my-follow-line"></div>
                     <div class="col-xs-6 col-sm-6 col-md-6">
                         <div class="my-fans">
-                            <a href="">
-                                <div class="pub-f-txt">我的粉丝</div>
-                                <div class="pub-f-num">123</div>
+                            <a href="#">
+                                <div class="pub-f-txt">关注者</div>
+                                <div class="pub-f-num"><%= user_db.fansCount || 0 %></div>
                             </a>
                         </div>
                     </div>
@@ -315,14 +376,24 @@
                     <span class="badge">14</span>
                     Cras justo odio
                 </li>
-                <li class="list-group-item">
-                    您的主页被浏览70次
-                </li>
             </ul>
 
+            <% if(!user_sn || user_sn.account !== user_db.account){ %>
+            <div class="muteOrReport-wrap">
+                <a href="#">屏蔽用户</a>
+                <a href="#">举报用户</a>
+            </div>
+            <% }else if(user_sn.account === user_db.account){ %>
+            <div class="visit-wrap">
+                <p>您的主页被浏览&nbsp;<span><%= user_db.visitCount || 0 %></span>&nbsp;次</p>
+            </div>
+            <% } %>
             <%- include links.ejs %>
         </div>
     </div>
     <%- include footer.ejs %>
 </div>
+<script src="/plugins/rgbaster/rgbaster.min.js"></script>
+<script src="/js/user.js"></script>
 <% } %>
+

@@ -15,6 +15,10 @@
     padding: 0 15px;
 }
 
+.original-author-list li:last-of-type {
+    border-bottom: none;
+}
+
 .original-author-list li:hover {
     background-color: #fbfbfb;
 }
@@ -24,7 +28,6 @@
 }
 
 .original-author-head {
-    margin-top: 10px;
     margin-right: 10px;
 }
 
@@ -33,12 +36,15 @@
     height: 40px;
 }
 
-.original-author-info h5 {
+.original-author-info .original-author-nick {
     color: #000;
 }
 
-.original-author-info p {
+.original-author-info .original-author-headline {
     font-size: 12px;
+    margin-top: 3px;
+    margin-bottom: 0;
+    color: #8590a6;
 }
 
 

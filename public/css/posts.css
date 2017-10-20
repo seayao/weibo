@@ -1,0 +1,115 @@
+.content-item {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border: none;
+    border-bottom: 1px solid rgba(178, 186, 194, .15);
+    margin-bottom: 15px;
+}
+
+.pub-show-tips{
+    color: #8590a6;
+}
+
+.pub-show-title {
+    margin: 10px 0 5px;
+}
+
+.pub-show-title a {
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.pub-show-user {
+    margin-top: 10px;
+}
+
+.pub-show-user-head {
+    margin-right: 10px;
+}
+
+.pub-show-user-head img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.pub-show-user-info a{
+    color: #262626;
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    line-height: 1.8;
+}
+
+.pub-show-user-info a:hover {
+    color: #007fff;
+}
+
+.pub-show-user-info .user-sign{
+    color: #262626;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.pub-show-content {
+    width: 100%;
+}
+
+.pub-show-content .pub-show-content-img {
+    width: 100%;
+    height: auto;
+}
+
+.pub-show-content .pub-show-content-img img {
+    width: 100%;
+    height: 105px;
+    cursor: pointer;
+}
+
+.pub-show-content-content {
+    width: 100%;
+    max-height: 100px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    overflow: hidden;
+}
+
+.pub-show-content-txt {
+    width: 100%;
+    max-height: 100px;
+    line-height: 1.67;
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Noto Sans CJK SC, WenQuanYi Micro Hei, Arial, sans-serif;
+    font-size: 15px;
+    color: #262626;
+}
+
+.pub-show-content-txt:hover {
+    color: #6f6f6f;
+    cursor: pointer;
+}
+
+.pub-show-foot {
+    width: 100%;
+    margin-top: 10px;
+    padding: 5px 0;
+}
+
+.pub-show-foot ul {
+    margin-bottom: 0;
+}
+
+.pub-show-foot li {
+    cursor: pointer;
+}
+
+.pub-show-foot li:hover {
+    color: #007fff;
+}
