@@ -62,13 +62,13 @@ $(document).ready(function () {
         //移动距离超过一定距离时出现
         $(window).scroll(function () {
             if ($(window).scrollTop() > 100) {
-                $(".back-top").fadeIn("normal");
+                $('.back-top').fadeIn('normal');
             } else {
-                $(".back-top").fadeOut("normal");
+                $('.back-top').fadeOut("normal");
             }
         });
         //返回顶部
-        $(".back-top").click(function (e) {
+        $('.back-top').click(function (e) {
             e.preventDefault();
             var speed = 500;//滑动的速度
             $('body,html').animate({scrollTop: 0}, speed);

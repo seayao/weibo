@@ -5,6 +5,7 @@ body {
     /*解决模态框左右抖动问题*/
     overflow: auto !important;
     background-color: #f7fafc;
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Noto Sans CJK SC, WenQuanYi Micro Hei, Arial, sans-serif;
 }
 
 /*按钮点击边框去除*/
@@ -24,7 +25,7 @@ body {
 
 .sea-menu-nav {
     background-color: #fff;
-    padding: 5px 0;
+    padding: 5px 0 0;
 }
 
 .sea-logo {

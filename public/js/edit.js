@@ -24,7 +24,7 @@ $('#uploadCover').change(function (e) {
         r.readAsDataURL(file);
         r.onload = function (e) {
             $('.pro-header').css('z-index', 3);
-            $('.cover-edit-action').slideToggle('normal');
+            $('.cover-edit-action').slideDown('normal');
             $('.UserCover-image').css('display', 'block');
             $('.showCover').css('display', 'none');
             $('.UserCover-noImage').css('display', 'none');
@@ -36,7 +36,7 @@ $('#uploadCover').change(function (e) {
 
 //用户封面取消上传操作
 $('#ucBtnCancel').click(function () {
-    $('.cover-edit-action').slideToggle('normal');
+    $('.cover-edit-action').slideUp('normal');
     $('.pro-header').css('z-index', 1);
     $('.showCover-preview').css('display', 'none').attr('src', '');
     //用户已有封面
@@ -64,7 +64,7 @@ $('#uploadAvatar').change(function (e) {
         r.onload = function (e) {
             $('.showHead-preview').css('display', 'block').attr('src', this.result);
             $('.showHead').css('display', 'none');
-            $('.headBtn-wrap').slideToggle('normal');
+            $('.headBtn-wrap').slideDown('normal');
         };
         //clearAll();
     }
@@ -72,7 +72,7 @@ $('#uploadAvatar').change(function (e) {
 
 //用户头像取消上传操作
 $('#headBtnCancel').click(function () {
-    $('.headBtn-wrap').slideToggle('normal');
+    $('.headBtn-wrap').slideUp('normal');
     $('.showHead').css('display', 'block');
     $('.showHead-preview').css('display', 'none');
 });

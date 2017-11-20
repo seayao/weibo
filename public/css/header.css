@@ -26,16 +26,28 @@
     transition: transform .2s ease-out;
 }
 
-.my-search-div {
-    margin-top: 10px;
+.search-box{
+    width: 100% !important;
+    padding-right: 20px;
+}
+
+.search-btn {
+    position: absolute;
+    top: 9px;
+    right: 8px;
+    cursor: pointer;
+}
+
+.search-btn:hover {
+    color: #4c8bf5;
 }
 
 .publish-btn {
-    margin: 10px 0 0 10px;
+    margin-top: 8px;
 }
 
 .user-handle-item {
-    max-height: 50px;
+    /*height: 50px;*/
     vertical-align: middle;
 }
 

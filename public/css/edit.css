@@ -49,6 +49,11 @@
     border-top-right-radius: 4px;
 }
 
+.UserCover-image .showCover {
+    width: 100%;
+    height: 240px;
+}
+
 .UserCover-image .showCover-preview {
     display: none;
     width: 100%;
@@ -260,7 +265,7 @@
     display: none;
 }
 
-.Field-Btn-Handle{
+.Field-Btn-Handle {
     margin-top: 15px;
 }
 
